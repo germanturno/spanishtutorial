@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESPAÑOL MAESTRO — 100+ Side by Side</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;600&family=Crimson+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blood:#C0392B; --terra:#E8724A; --gold:#F5C842; --cream:#F7F1E3;
+  --ink:#1A1008; --sky:#3A7CA5; --green:#7CB97C;
+  --es-bg:rgba(232,114,74,0.06); --en-bg:rgba(58,124,165,0.06);
+  --es-border:rgba(232,114,74,0.3); --en-border:rgba(58,124,165,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--ink);color:var(--cream);font-family:'Crimson Pro',serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.6;}
+
+/* HEADER */
+header{position:relative;padding:2.2rem 2rem 1.5rem;border-bottom:1px solid rgba(245,200,66,0.2);overflow:hidden;}
+header::before{content:'ESPAÑOL';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,16vw,14rem);color:transparent;-webkit-text-stroke:1px rgba(232,114,74,0.05);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;letter-spacing:0.05em;}
+.header-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:0.08em;line-height:1;}
+.logo span{color:var(--terra);}
+.logo-sub{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(247,241,227,0.35);margin-top:0.3rem;}
+.xp-wrap{text-align:right;}
+.xp-bar-outer{width:180px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-top:0.4rem;}
+.xp-bar-inner{height:100%;width:62%;background:linear-gradient(90deg,var(--terra),var(--gold));border-radius:2px;}
+.xp-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;color:rgba(247,241,227,0.28);text-transform:uppercase;margin-top:0.3rem;}
+.lang-key{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 2rem 0;}
+.lang-pill{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.18rem 0.65rem;border-radius:2px;}
+.lang-pill.es{background:rgba(232,114,74,0.15);color:var(--terra);border:1px solid rgba(232,114,74,0.25);}
+.lang-pill.en{background:rgba(58,124,165,0.15);color:var(--sky);border:1px solid rgba(58,124,165,0.25);}
+.lang-sep{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;color:rgba(247,241,227,0.15);}
+
+/* TABS */
+.tabs{display:flex;padding:0 2rem;border-bottom:1px solid rgba(245,200,66,0.1);overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.85rem 1.2rem;color:rgba(247,241,227,0.3);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;transition:all 0.25s;white-space:nowrap;background:none;}
+.tab:hover{color:var(--cream);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* LAYOUT */
+main{max-width:1200px;margin:0 auto;padding:2rem 2rem 6rem;}
+.section{display:none;}
+.section.active{display:block;animation:fadeUp 0.35s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:0.05em;margin-bottom:0.3rem;}
+.sec-title span{color:var(--terra);}
+.sec-desc{font-size:0.95rem;color:rgba(247,241,227,0.4);font-style:italic;margin-bottom:1.8rem;}
+.count-badge{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;background:rgba(245,200,66,0.1);color:var(--gold);border:1px solid rgba(245,200,66,0.2);margin-bottom:1.5rem;display:inline-block;}
+
+/* SIDE-BY-SIDE BUILDING BLOCK */
+.sbs{display:grid;grid-template-columns:1fr 1fr;border-radius:4px;overflow:hidden;border:1px solid rgba(247,241,227,0.07);margin-bottom:0.8rem;}
+.sbs-es{background:var(--es-bg);border-right:1px solid var(--es-border);padding:1.2rem 1.4rem;}
+.sbs-en{background:var(--en-bg);padding:1.2rem 1.4rem;}
+.sbs-col-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.55rem;}
+.sbs-col-lbl.es{color:var(--terra);}
+.sbs-col-lbl.en{color:var(--sky);}
+@media(max-width:580px){.sbs{grid-template-columns:1fr;}.sbs-es{border-right:none;border-bottom:1px solid var(--es-border);}}
+
+/* HOME */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;}
+.cat-card{background:rgba(247,241,227,0.03);border:1px solid rgba(247,241,227,0.08);border-radius:4px;padding:1.5rem;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
+.cat-card:hover{border-color:rgba(232,114,74,0.4);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.4);}
+.cat-icon{font-size:1.7rem;margin-bottom:0.8rem;display:block;}
+.cat-name{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.cat-count{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;color:var(--terra);text-transform:uppercase;}
+.cat-desc{font-size:0.86rem;color:rgba(247,241,227,0.4);margin-top:0.6rem;line-height:1.5;font-style:italic;}
+.cat-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;margin-top:1rem;overflow:hidden;}
+.cat-fill{height:100%;background:var(--terra);border-radius:1px;}
+
+/* FLASHCARD */
+.fc-wrap{max-width:800px;}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:rgba(247,241,227,0.25);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.fc-card{border-radius:5px;overflow:hidden;border:1px solid rgba(247,241,227,0.09);margin-bottom:1.2rem;}
+.fc-card-top{display:grid;grid-template-columns:1fr 1fr;min-height:170px;}
+.fc-side{padding:1.8rem;display:flex;flex-direction:column;justify-content:center;}
+.fc-es-side{background:linear-gradient(145deg,#1e0f05,#2a1508);border-right:1px solid var(--es-border);}
+.fc-en-side{background:linear-gradient(145deg,#0d1a0a,#152310);}
+.fc-side-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.7rem;}
+.fc-es-side .fc-side-lbl{color:rgba(232,114,74,0.55);}
+.fc-en-side .fc-side-lbl{color:rgba(58,124,165,0.55);}
+.fc-main{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3.5vw,2.2rem);line-height:1.15;margin-bottom:0.35rem;}
+.fc-es-side .fc-main{color:var(--cream);}
+.fc-en-side .fc-main{color:var(--green);}
+.fc-phon{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:rgba(247,241,227,0.22);margin-bottom:0.4rem;}
+.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(247,241,227,0.2);}
+.fc-en-sub{font-size:0.86rem;color:rgba(124,185,124,0.6);font-style:italic;margin-top:0.3rem;line-height:1.4;}
+.fc-bottom{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(247,241,227,0.06);}
+.fc-ex{padding:1rem 1.4rem;}
+.fc-ex-es{background:rgba(232,114,74,0.04);border-right:1px solid rgba(232,114,74,0.1);}
+.fc-ex-en{background:rgba(58,124,165,0.04);}
+.fc-ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(247,241,227,0.15);margin-bottom:0.3rem;}
+.fc-ex-text{font-style:italic;font-size:0.9rem;line-height:1.5;}
+.fc-ex-es .fc-ex-text{color:rgba(247,241,227,0.65);}
+.fc-ex-en .fc-ex-text{color:rgba(124,185,124,0.6);}
+.fc-note{padding:0.7rem 1.4rem;background:rgba(245,200,66,0.03);border-top:1px solid rgba(245,200,66,0.07);font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.07em;color:rgba(247,241,227,0.28);line-height:1.6;}
+.fc-note strong{color:rgba(245,200,66,0.5);}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.15rem 0.45rem;border-radius:2px;display:inline-block;}
+.badge-b2{background:rgba(58,124,165,0.18);color:var(--sky);}
+.badge-c1{background:rgba(232,114,74,0.18);color:var(--terra);}
+.badge-nat{background:rgba(245,200,66,0.1);color:var(--gold);}
+.badge-warn{background:rgba(192,57,43,0.18);color:#e06655;}
+@media(max-width:580px){.fc-card-top,.fc-bottom{grid-template-columns:1fr;}.fc-es-side{border-right:none;border-bottom:1px solid var(--es-border);}.fc-ex-es{border-right:none;border-bottom:1px solid rgba(232,114,74,0.1);}}
+.fc-actions{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:1rem;}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.7rem 1.3rem;border:1px solid;border-radius:3px;cursor:pointer;transition:all 0.2s;background:none;}
+.btn-hard{color:var(--blood);border-color:var(--blood);}
+.btn-hard:hover{background:var(--blood);color:var(--cream);}
+.btn-good{color:var(--green);border-color:var(--green);}
+.btn-good:hover{background:var(--green);color:var(--ink);}
+.btn-skip{color:rgba(247,241,227,0.25);border-color:rgba(247,241,227,0.12);}
+.btn-skip:hover{color:var(--cream);border-color:var(--cream);}
+.fc-stats{display:flex;gap:2rem;}
+.fc-stat-n{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;display:block;line-height:1;}
+.fc-stat-n.g{color:var(--green);}.fc-stat-n.h{color:var(--blood);}.fc-stat-n.s{color:rgba(247,241,227,0.25);}
+.fc-stat-l{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(247,241,227,0.18);margin-top:0.2rem;}
+.deck-sel{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.deck-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.8rem;border:1px solid rgba(247,241,227,0.12);border-radius:2px;cursor:pointer;background:none;color:rgba(247,241,227,0.3);transition:all 0.2s;}
+.deck-btn:hover,.deck-btn.active{color:var(--cream);border-color:rgba(247,241,227,0.4);background:rgba(247,241,227,0.04);}
+
+/* QUIZ */
+.quiz-q-sbs{display:grid;grid-template-columns:1fr 1fr;border-radius:5px;overflow:hidden;border:1px solid rgba(247,241,227,0.08);margin-bottom:1.4rem;}
+.qq-es{background:var(--es-bg);border-right:1px solid var(--es-border);padding:1.3rem 1.5rem;}
+.qq-en{background:var(--en-bg);padding:1.3rem 1.5rem;}
+.qq-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:0.45rem;}
+.qq-lbl.es{color:var(--terra);}.qq-lbl.en{color:var(--sky);}
+.qq-text{font-family:'DM Serif Display',serif;font-size:clamp(0.95rem,2.3vw,1.3rem);line-height:1.4;}
+.qq-es .qq-text{color:var(--cream);font-style:italic;}
+.qq-en .qq-text{color:rgba(247,241,227,0.68);}
+.quiz-instr{font-size:0.82rem;font-style:italic;color:rgba(247,241,227,0.3);margin-top:0.35rem;}
+.quiz-num{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.26em;text-transform:uppercase;color:rgba(247,241,227,0.25);margin-bottom:0.6rem;}
+.quiz-cat{font-family:'IBM Plex Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.18rem 0.55rem;border-radius:2px;margin-bottom:0.8rem;display:inline-block;}
+.quiz-cat.grammar{background:rgba(58,124,165,0.18);color:var(--sky);}
+.quiz-cat.vocabulary{background:rgba(232,114,74,0.18);color:var(--terra);}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;max-width:720px;margin-bottom:0.9rem;}
+.quiz-opt{display:grid;grid-template-columns:1fr 1fr;border-radius:3px;overflow:hidden;border:1px solid rgba(247,241,227,0.1);cursor:pointer;transition:all 0.2s;}
+.quiz-opt:hover:not(.disabled){border-color:rgba(232,114,74,0.4);}
+.quiz-opt.correct{border-color:var(--green);}
+.quiz-opt.wrong{border-color:var(--blood);}
+.quiz-opt.disabled{cursor:default;}
+.opt-es{background:rgba(232,114,74,0.05);border-right:1px solid rgba(232,114,74,0.1);padding:0.75rem 0.85rem;}
+.opt-en{background:rgba(58,124,165,0.05);padding:0.75rem 0.85rem;}
+.quiz-opt.correct .opt-es{background:rgba(124,185,124,0.12);}
+.quiz-opt.correct .opt-en{background:rgba(124,185,124,0.07);}
+.quiz-opt.wrong .opt-es{background:rgba(192,57,43,0.12);}
+.quiz-opt.wrong .opt-en{background:rgba(192,57,43,0.07);}
+.opt-k{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:rgba(247,241,227,0.18);margin-bottom:0.2rem;}
+.opt-sp{font-family:'DM Serif Display',serif;font-size:0.92rem;color:var(--cream);font-style:italic;}
+.opt-en-txt{font-size:0.82rem;color:rgba(247,241,227,0.48);line-height:1.35;margin-top:0.15rem;}
+.quiz-opt.correct .opt-sp,.quiz-opt.correct .opt-en-txt{color:var(--green);}
+.quiz-opt.wrong .opt-sp,.quiz-opt.wrong .opt-en-txt{color:#e06655;}
+.quiz-fb{margin-top:0.8rem;padding:1rem 1.3rem;border-radius:4px;font-size:0.93rem;line-height:1.7;display:none;max-width:720px;}
+.quiz-fb.show{display:block;animation:fadeUp 0.3s ease;}
+.quiz-fb.ok{background:rgba(124,185,124,0.07);border:1px solid rgba(124,185,124,0.26);color:var(--green);}
+.quiz-fb.no{background:rgba(192,57,43,0.07);border:1px solid rgba(192,57,43,0.26);color:#e06655;}
+.quiz-next{margin-top:0.9rem;display:none;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.8rem 1.7rem;background:var(--terra);color:var(--ink);border:none;border-radius:3px;cursor:pointer;font-weight:600;transition:all 0.2s;}
+.quiz-next:hover{background:var(--gold);}
+.quiz-next.show{display:inline-block;}
+.q-prog{display:flex;gap:3px;margin-bottom:1.2rem;flex-wrap:wrap;}
+.q-dot{width:12px;height:4px;background:rgba(255,255,255,0.08);border-radius:1px;transition:background 0.3s;}
+.q-dot.done-ok{background:var(--green);}
+.q-dot.done-no{background:var(--blood);}
+.q-dot.current{background:var(--gold);}
+@media(max-width:580px){.quiz-q-sbs{grid-template-columns:1fr;}.qq-es{border-right:none;border-bottom:1px solid var(--es-border);}.quiz-opts{grid-template-columns:1fr;}.quiz-opt{grid-template-columns:1fr;}.opt-es{border-right:none;border-bottom:1px solid rgba(232,114,74,0.1);}}
+
+/* GRAMMAR */
+.gram-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;}
+@media(max-width:720px){.gram-grid{grid-template-columns:1fr;}}
+.gram-card{background:rgba(247,241,227,0.02);border:1px solid rgba(247,241,227,0.07);border-radius:4px;padding:1.6rem;transition:border-color 0.3s;}
+.gram-card:hover{border-color:rgba(245,200,66,0.16);}
+.gram-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.05em;color:var(--gold);margin-bottom:0.12rem;}
+.gram-lv{font-family:'IBM Plex Mono',monospace;font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(247,241,227,0.18);margin-bottom:0.8rem;}
+.gram-card p{font-size:0.9rem;color:rgba(247,241,227,0.58);line-height:1.75;margin-bottom:0.7rem;}
+.tip{background:rgba(245,200,66,0.05);border-left:2px solid rgba(245,200,66,0.3);padding:0.65rem 0.85rem;border-radius:0 3px 3px 0;margin:0.6rem 0;font-size:0.86rem;color:rgba(247,241,227,0.52);line-height:1.6;}
+.gram-ex{display:grid;grid-template-columns:1fr 1fr;border-radius:3px;overflow:hidden;border:1px solid rgba(247,241,227,0.06);margin:0.55rem 0;}
+.gram-ex-es{background:rgba(232,114,74,0.06);border-right:1px solid rgba(232,114,74,0.14);padding:0.65rem 0.85rem;}
+.gram-ex-en{background:rgba(58,124,165,0.05);padding:0.65rem 0.85rem;}
+.gram-ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.49rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.25rem;}
+.gram-ex-es .gram-ex-lbl{color:rgba(232,114,74,0.45);}
+.gram-ex-en .gram-ex-lbl{color:rgba(58,124,165,0.45);}
+.gram-ex-es .gram-ex-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:0.92rem;color:var(--cream);line-height:1.4;}
+.gram-ex-en .gram-ex-text{font-size:0.86rem;color:rgba(124,185,124,0.72);line-height:1.4;}
+.gram-ex-note{grid-column:1/-1;background:rgba(245,200,66,0.02);border-top:1px solid rgba(247,241,227,0.04);padding:0.4rem 0.85rem;font-family:'IBM Plex Mono',monospace;font-size:0.54rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(247,241,227,0.18);}
+@media(max-width:580px){.gram-ex{grid-template-columns:1fr;}.gram-ex-es{border-right:none;border-bottom:1px solid rgba(232,114,74,0.14);}}
+.conj-table{width:100%;border-collapse:collapse;margin-top:0.8rem;font-size:0.84rem;}
+.conj-table th{font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(247,241,227,0.2);padding:0.4rem 0.65rem;text-align:left;border-bottom:1px solid rgba(247,241,227,0.06);}
+.conj-table td{padding:0.4rem 0.65rem;border-bottom:1px solid rgba(247,241,227,0.04);}
+.conj-table td:first-child{color:rgba(247,241,227,0.26);font-style:italic;font-size:0.78rem;}
+.conj-table td.sp{font-family:'DM Serif Display',serif;color:var(--cream);}
+.conj-table td.en-col{font-size:0.8rem;color:rgba(124,185,124,0.68);}
+
+/* PHRASES */
+.filter-row{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.3rem;}
+.filter-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.8rem;border:1px solid rgba(247,241,227,0.12);border-radius:2px;cursor:pointer;background:none;color:rgba(247,241,227,0.28);transition:all 0.2s;}
+.filter-btn:hover,.filter-btn.active{color:var(--cream);border-color:rgba(247,241,227,0.4);background:rgba(247,241,227,0.04);}
+.phrase-item{border-radius:4px;overflow:hidden;border:1px solid rgba(247,241,227,0.07);margin-bottom:0.75rem;transition:border-color 0.25s;}
+.phrase-item:hover{border-color:rgba(58,124,165,0.28);}
+.phrase-item.playing{border-color:var(--sky);}
+.phrase-top{display:grid;grid-template-columns:1fr 1fr;}
+.p-es{background:rgba(232,114,74,0.05);border-right:1px solid rgba(232,114,74,0.13);padding:1rem 1.3rem;}
+.p-en{background:rgba(58,124,165,0.04);padding:1rem 1.3rem;}
+.p-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.4rem;}
+.p-es .p-lbl{color:rgba(232,114,74,0.5);}
+.p-en .p-lbl{color:rgba(58,124,165,0.5);}
+.p-es-text{font-family:'DM Serif Display',serif;font-size:1rem;font-style:italic;color:var(--cream);line-height:1.3;}
+.p-en-text{font-size:0.92rem;color:rgba(247,241,227,0.52);line-height:1.35;}
+.phrase-bottom{display:flex;align-items:center;justify-content:space-between;padding:0.45rem 1.3rem;background:rgba(247,241,227,0.02);border-top:1px solid rgba(247,241,227,0.04);}
+.p-badge{font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;padding:0.13rem 0.4rem;border-radius:2px;}
+.p-badge.beginner{background:rgba(124,185,124,0.15);color:var(--green);}
+.p-badge.intermediate{background:rgba(58,124,165,0.15);color:var(--sky);}
+.p-badge.advanced{background:rgba(192,57,43,0.15);color:#e06655;}
+.p-badge.native{background:rgba(245,200,66,0.1);color:var(--gold);}
+.p-ctx{font-size:0.76rem;color:rgba(247,241,227,0.2);font-style:italic;flex:1;padding:0 0.9rem;}
+.play-btn{width:30px;height:30px;border-radius:50%;background:rgba(58,124,165,0.1);border:1px solid rgba(58,124,165,0.22);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--sky);transition:all 0.2s;cursor:pointer;flex-shrink:0;}
+.phrase-item:hover .play-btn,.phrase-item.playing .play-btn{background:var(--sky);color:var(--ink);}
+@media(max-width:580px){.phrase-top{grid-template-columns:1fr;}.p-es{border-right:none;border-bottom:1px solid rgba(232,114,74,0.13);}}
+
+/* PROGRESS */
+.streak-card{background:linear-gradient(135deg,rgba(245,200,66,0.05),rgba(232,114,74,0.05));border:1px solid rgba(245,200,66,0.13);border-radius:4px;padding:1.6rem;text-align:center;margin-bottom:1.6rem;}
+.streak-n{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:var(--gold);line-height:1;}
+.streak-l{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.26em;text-transform:uppercase;color:rgba(247,241,227,0.25);margin-top:0.3rem;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.8rem;margin-bottom:1.8rem;}
+.stat-card{background:rgba(247,241,227,0.02);border:1px solid rgba(247,241,227,0.06);border-radius:4px;padding:1.2rem;text-align:center;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--terra);line-height:1;}
+.stat-l{font-family:'IBM Plex Mono',monospace;font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(247,241,227,0.18);margin-top:0.35rem;}
+.road-row{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.8rem;}
+.road-lv{font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;width:30px;flex-shrink:0;}
+.road-bar{flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+.road-fill{height:100%;border-radius:2px;}
+.road-tag{font-family:'IBM Plex Mono',monospace;font-size:0.53rem;letter-spacing:0.13em;text-transform:uppercase;white-space:nowrap;width:100px;text-align:right;flex-shrink:0;}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.6rem 0;opacity:0.13;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--cream);}
+.divider span{font-family:'Bebas Neue';font-size:0.82rem;letter-spacing:0.2em;}
+
+/* COMPLETION */
+.completion{display:none;text-align:center;padding:3rem 2rem;}
+.completion.show{display:block;animation:fadeUp 0.5s ease forwards;}
+.comp-icon{font-size:3.5rem;margin-bottom:1.2rem;animation:bounce 0.6s ease;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.comp-title{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:0.05em;color:var(--gold);margin-bottom:0.35rem;}
+.comp-msg{font-size:0.95rem;color:rgba(247,241,227,0.42);font-style:italic;margin-bottom:1.6rem;}
+.btn-primary{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;padding:0.9rem 2rem;background:var(--terra);color:var(--ink);border:none;border-radius:3px;cursor:pointer;font-weight:600;transition:all 0.2s;}
+.btn-primary:hover{background:var(--gold);}
+.back-btn{font-family:'IBM Plex Mono',monospace;font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(247,241,227,0.25);background:none;border:none;cursor:pointer;margin-bottom:1.6rem;padding:0;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;}
+.back-btn:hover{color:var(--cream);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">ESPAÑOL <span>MAESTRO</span></div>
+      <div class="logo-sub">100+ Entries · Spanish &amp; English · Always Side by Side</div>
+    </div>
+    <div class="xp-wrap">
+      <div class="xp-lbl">Level B2 — 1,240 XP</div>
+      <div class="xp-bar-outer"><div class="xp-bar-inner"></div></div>
+      <div class="xp-lbl">620 / 1000 XP to reach C1</div>
+    </div>
+  </div>
+  <div class="lang-key">
+    <span class="lang-pill es">🇪🇸 Spanish</span>
+    <span class="lang-sep">always beside</span>
+    <span class="lang-pill en">🇬🇧 English</span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" onclick="gotoTab('home')">🏠 Home</button>
+  <button class="tab" onclick="gotoTab('flashcards')">🃏 Flashcards</button>
+  <button class="tab" onclick="gotoTab('quiz')">⚡ Quiz</button>
+  <button class="tab" onclick="gotoTab('grammar')">📐 Grammar</button>
+  <button class="tab" onclick="gotoTab('phrases')">🗣️ Phrases</button>
+  <button class="tab" onclick="gotoTab('progress')">📊 Progress</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div id="section-home" class="section active">
+  <div class="sec-title">Choose a <span>Category</span></div>
+  <div class="sec-desc">Everything shown Spanish left · English right — always side by side</div>
+  <div class="count-badge">📚 100+ entries across all sections</div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="startFC('b2vocab')"><span class="cat-icon">🔥</span><div class="cat-name">Advanced Vocabulary</div><div class="cat-count">20 words · B2–C1</div><div class="cat-desc">High-frequency academic and expressive words with bilingual examples</div><div class="cat-bar"><div class="cat-fill" style="width:45%"></div></div></div>
+    <div class="cat-card" onclick="startFC('idioms')"><span class="cat-icon">🎭</span><div class="cat-name">Idioms & Proverbs</div><div class="cat-count">15 expressions · Native</div><div class="cat-desc">Spanish idioms shown alongside English equivalents with usage context</div><div class="cat-bar"><div class="cat-fill" style="width:20%"></div></div></div>
+    <div class="cat-card" onclick="startFC('falsefriends')"><span class="cat-icon">⚠️</span><div class="cat-name">False Friends</div><div class="cat-count">12 dangerous pairs · B2</div><div class="cat-desc">Look-alike words that mean completely different things</div><div class="cat-bar"><div class="cat-fill" style="width:70%"></div></div></div>
+    <div class="cat-card" onclick="startFC('formal')"><span class="cat-icon">📜</span><div class="cat-name">Formal Spanish</div><div class="cat-count">10 terms · C1</div><div class="cat-desc">Academic and professional expressions for writing and formal speech</div><div class="cat-bar"><div class="cat-fill" style="width:10%"></div></div></div>
+    <div class="cat-card" onclick="gotoTab('quiz')"><span class="cat-icon">⚡</span><div class="cat-name">Daily Quiz</div><div class="cat-count">20 questions · Mixed</div><div class="cat-desc">Questions and options shown in both languages with English explanations</div><div class="cat-bar"><div class="cat-fill" style="width:0%"></div></div></div>
+    <div class="cat-card" onclick="gotoTab('phrases')"><span class="cat-icon">🗣️</span><div class="cat-name">Authentic Phrases</div><div class="cat-count">30 phrases · All levels</div><div class="cat-desc">Real expressions native speakers use every day — with audio</div><div class="cat-bar"><div class="cat-fill" style="width:35%"></div></div></div>
+    <div class="cat-card" onclick="gotoTab('grammar')"><span class="cat-icon">📐</span><div class="cat-name">Grammar Guide</div><div class="cat-count">8 topics · B2–C1</div><div class="cat-desc">Every rule explained in English with bilingual examples throughout</div><div class="cat-bar"><div class="cat-fill" style="width:55%"></div></div></div>
+    <div class="cat-card" onclick="gotoTab('progress')"><span class="cat-icon">📊</span><div class="cat-name">My Progress</div><div class="cat-count">B2 → C2 roadmap</div><div class="cat-desc">Track your streak, XP and journey to mastery</div><div class="cat-bar"><div class="cat-fill" style="width:62%"></div></div></div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="section-flashcards" class="section">
+  <button class="back-btn" onclick="gotoTab('home')">← Back to Categories</button>
+  <div id="fc-main">
+    <div class="sec-title" id="fc-deck-title">Advanced <span>Vocabulary</span></div>
+    <div class="sec-desc">Spanish on the left · English on the right · always visible together</div>
+    <div class="deck-sel" id="deck-sel">
+      <button class="deck-btn active" onclick="startFC('b2vocab',this)">🔥 Vocab (20)</button>
+      <button class="deck-btn" onclick="startFC('idioms',this)">🎭 Idioms (15)</button>
+      <button class="deck-btn" onclick="startFC('falsefriends',this)">⚠️ False Friends (12)</button>
+      <button class="deck-btn" onclick="startFC('formal',this)">📜 Formal (10)</button>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc-meta">
+        <span id="fc-counter">Card 1 of 20</span>
+        <span id="fc-badge" class="badge badge-b2">B2 Vocabulary</span>
+      </div>
+      <div class="fc-card">
+        <div class="fc-card-top">
+          <div class="fc-side fc-es-side">
+            <div class="fc-side-lbl">🇪🇸 Spanish</div>
+            <div class="fc-main" id="fc-es-word">sin embargo</div>
+            <div class="fc-phon" id="fc-phon">/sin em-ˈbar-go/</div>
+            <div class="fc-tag" id="fc-type">Connective Phrase</div>
+          </div>
+          <div class="fc-side fc-en-side">
+            <div class="fc-side-lbl">🇬🇧 English</div>
+            <div class="fc-main" id="fc-en-word">nevertheless / however</div>
+            <div class="fc-en-sub" id="fc-en-sub">Introduces a contrast or contradiction</div>
+          </div>
+        </div>
+        <div class="fc-bottom">
+          <div class="fc-ex fc-ex-es"><div class="fc-ex-lbl">Example in Spanish</div><div class="fc-ex-text" id="fc-ex-es">"Era tarde; sin embargo, siguieron trabajando."</div></div>
+          <div class="fc-ex fc-ex-en"><div class="fc-ex-lbl">English translation</div><div class="fc-ex-text" id="fc-ex-en">"It was late; however, they kept on working."</div></div>
+        </div>
+        <div class="fc-note" id="fc-note">📌 <strong>Note:</strong> More formal than "pero." Used in academic writing and formal speech.</div>
+      </div>
+      <div class="fc-actions">
+        <button class="btn btn-hard" onclick="rateCard('hard')">✗ Hard — Review Again</button>
+        <button class="btn btn-skip" onclick="rateCard('skip')">→ Skip</button>
+        <button class="btn btn-good" onclick="rateCard('good')">✓ Got It!</button>
+      </div>
+      <div class="fc-stats">
+        <div><span class="fc-stat-n g" id="fc-good">0</span><div class="fc-stat-l">Got It</div></div>
+        <div><span class="fc-stat-n h" id="fc-hard">0</span><div class="fc-stat-l">Hard</div></div>
+        <div><span class="fc-stat-n s" id="fc-skip">0</span><div class="fc-stat-l">Skipped</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="completion" id="fc-done">
+    <div class="comp-icon">🎉</div>
+    <div class="comp-title">Session Complete!</div>
+    <div class="comp-msg" id="fc-done-msg">Great work!</div>
+    <button class="btn-primary" onclick="restartFC()">Practice Again</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="section-quiz" class="section">
+  <div class="sec-title">Daily <span>Quiz</span></div>
+  <div class="sec-desc">20 questions · Spanish and English shown together · full explanations after each answer</div>
+  <div id="quiz-main">
+    <div class="q-prog" id="q-prog"></div>
+    <div class="quiz-num" id="q-num">Question 1 / 20</div>
+    <span id="q-cat" class="quiz-cat grammar">Grammar</span>
+    <div class="quiz-q-sbs">
+      <div class="qq-es"><div class="qq-lbl es">🇪🇸 Spanish</div><div class="qq-text" id="q-es"></div></div>
+      <div class="qq-en"><div class="qq-lbl en">🇬🇧 English</div><div class="qq-text" id="q-en"></div><div class="quiz-instr" id="q-instr"></div></div>
+    </div>
+    <div class="quiz-opts" id="q-opts"></div>
+    <div class="quiz-fb" id="q-fb"></div>
+    <button class="quiz-next" id="q-next" onclick="nextQ()">Next Question →</button>
+  </div>
+  <div class="completion" id="quiz-done">
+    <div class="comp-icon" id="q-icon">🌟</div>
+    <div class="comp-title" id="q-title">Excellent!</div>
+    <div class="comp-msg" id="q-msg"></div>
+    <button class="btn-primary" onclick="restartQuiz()">Try Again</button>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div id="section-grammar" class="section">
+  <div class="sec-title">Grammar <span>Guide</span></div>
+  <div class="sec-desc">8 topics · rules explained in English · every example Spanish left, English right</div>
+  <div class="count-badge">8 Grammar Topics · 40+ bilingual examples</div>
+  <div class="gram-grid" id="gram-grid"></div>
+</div>
+
+<!-- PHRASES -->
+<div id="section-phrases" class="section">
+  <div class="sec-title">Authentic <span>Phrases</span></div>
+  <div class="sec-desc">30 real expressions · Spanish on the left · English on the right · click ▶ to hear</div>
+  <div class="count-badge">123 Phrases · All Levels</div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterPhrases('all',this)">All (123)</button>
+    <button class="filter-btn" onclick="filterPhrases('beginner',this)">Beginner A2–B1 (18)</button>
+    <button class="filter-btn" onclick="filterPhrases('intermediate',this)">Intermediate B2 (35)</button>
+    <button class="filter-btn" onclick="filterPhrases('advanced',this)">Advanced C1 (35)</button>
+    <button class="filter-btn" onclick="filterPhrases('native',this)">Native Level (35)</button>
+  </div>
+  <div id="phrase-list"></div>
+</div>
+
+<!-- PROGRESS -->
+<div id="section-progress" class="section">
+  <div class="sec-title">Your <span>Progress</span></div>
+  <div class="sec-desc">Track your journey from B2 to mastery</div>
+  <div class="streak-card"><div class="streak-n">🔥 7</div><div class="streak-l">Day Streak — Keep going!</div></div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-n">100+</div><div class="stat-l">Entries Available</div></div>
+    <div class="stat-card"><div class="stat-n">247</div><div class="stat-l">Words Reviewed</div></div>
+    <div class="stat-card"><div class="stat-n">84%</div><div class="stat-l">Quiz Accuracy</div></div>
+    <div class="stat-card"><div class="stat-n">1,240</div><div class="stat-l">Total XP</div></div>
+    <div class="stat-card"><div class="stat-n">18</div><div class="stat-l">Sessions Done</div></div>
+    <div class="stat-card"><div class="stat-n">57</div><div class="stat-l">Cards Mastered</div></div>
+  </div>
+  <div class="divider"><span>Your Level Roadmap</span></div>
+  <div class="road-row" style="opacity:0.4"><div class="road-lv" style="color:var(--sky)">A2</div><div class="road-bar"><div class="road-fill" style="width:100%;background:var(--sky)"></div></div><div class="road-tag" style="color:rgba(247,241,227,0.3)">✓ Done</div></div>
+  <div class="road-row" style="opacity:0.5"><div class="road-lv" style="color:var(--sky)">B1</div><div class="road-bar"><div class="road-fill" style="width:100%;background:var(--sky)"></div></div><div class="road-tag" style="color:rgba(247,241,227,0.3)">✓ Done</div></div>
+  <div class="road-row"><div class="road-lv" style="color:var(--terra)">B2</div><div class="road-bar"><div class="road-fill" style="width:62%;background:var(--terra)"></div></div><div class="road-tag" style="color:var(--terra)">← You are here</div></div>
+  <div class="road-row" style="opacity:0.3"><div class="road-lv" style="color:var(--gold)">C1</div><div class="road-bar"><div class="road-fill" style="width:0%"></div></div><div class="road-tag" style="color:rgba(247,241,227,0.25)">Advanced</div></div>
+  <div class="road-row" style="opacity:0.2"><div class="road-lv" style="color:var(--gold)">C2</div><div class="road-bar"><div class="road-fill" style="width:0%"></div></div><div class="road-tag" style="color:rgba(247,241,227,0.2)">Mastery</div></div>
+</div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA — 57 flashcards, 20 quiz questions, 30 phrases, 8 grammar topics
+// ═══════════════════════════════════════════════════════════════
+
+const DECKS = {
+b2vocab:{title:'Advanced <span>Vocabulary</span>',cards:[
+  {es:'sin embargo',type:'Connective Phrase',phon:'/sin em-ˈbar-go/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'nevertheless / however',enSub:'Introduces a contrast or contradiction',exEs:'"Era tarde; sin embargo, siguieron trabajando."',exEn:'"It was late; however, they kept on working."',note:'More formal than "pero." Common in academic writing.'},
+  {es:'a pesar de',type:'Prepositional Phrase',phon:'/a pe-ˈsar de/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'despite / in spite of',enSub:'Followed by noun or infinitive — NOT a conjugated verb',exEs:'"A pesar del frío, salió a correr."',exEn:'"Despite the cold, she went out for a run."',note:'"A pesar de que" + subjunctive/indicative for clauses.'},
+  {es:'caber',type:'Irregular Verb',phon:'/ka-ˈβer/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'to fit (into)',enSub:'Irregular yo: quepo. "No cabe duda" = there is no doubt',exEs:'"No cabe duda de que es muy inteligente."',exEn:'"There is no doubt that he is very intelligent."',note:'Very common in the fixed expression "no cabe duda."'},
+  {es:'abordar',type:'Formal Verb',phon:'/a.βor.ˈðar/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'to address / to tackle',enSub:'Used for problems or topics — more formal than "tratar"',exEs:'"Hay que abordar este problema con urgencia."',exEn:'"This problem must be addressed urgently."',note:'More formal and precise than "tratar de." Common in academic contexts.'},
+  {es:'imprescindible',type:'Adjective',phon:'/im.pres.θin.ˈdi.βle/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'indispensable / absolutely essential',enSub:'Stronger than "necesario" — it absolutely cannot be done without',exEs:'"Su presencia es imprescindible en la reunión."',exEn:'"Your presence is absolutely essential at the meeting."',note:'Superlative strength — stronger than "necesario" or "importante."'},
+  {es:'entrañar',type:'Formal Verb',phon:'/en.tra.ˈɲar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to entail / to involve',enSub:'More sophisticated than "implicar" for formal writing',exEs:'"Este puesto entraña mucha responsabilidad."',exEn:'"This position entails a great deal of responsibility."',note:'Higher register than "implicar." Used in formal reports and legal writing.'},
+  {es:'cotidiano',type:'Adjective',phon:'/ko.ti.ˈðja.no/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'everyday / daily / ordinary',enSub:'"La vida cotidiana" = everyday life | "tareas cotidianas" = daily tasks',exEs:'"La belleza de lo cotidiano nos rodea."',exEn:'"The beauty of everyday things surrounds us."',note:'Formal/literary equivalent of "de cada día."'},
+  {es:'afán',type:'Masc. Noun',phon:'/a.ˈfan/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'eagerness / drive / urge',enSub:'"Afán de + infinitive" = eagerness to do something',exEs:'"Su afán de superación es admirable."',exEn:'"Her drive to better herself is admirable."',note:'"Afán de superación" (drive to improve) is a very common collocation.'},
+  {es:'desempeñar',type:'Formal Verb',phon:'/de.sem.pe.ˈɲar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to perform / to hold (a role)',enSub:'"Desempeñar un cargo" = hold a post | "desempeñar un papel" = play a role',exEs:'"Desempeña el cargo de directora desde hace años."',exEn:'"She has held the director position for several years."',note:'Very common in professional/CV contexts.'},
+  {es:'conllevar',type:'Formal Verb',phon:'/kon.je.ˈβar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to entail / to lead to',enSub:'Something that inherently brings about a consequence',exEs:'"Esta decisión conlleva riesgos importantes."',exEn:'"This decision entails significant risks."',note:'Implies a natural, inherent consequence. More formal than "traer."'},
+  {es:'no obstante',type:'Formal Connector',phon:'/no obs.ˈtan.te/',badge:'badge-c1',badgeTxt:'C1 Formal',en:'nevertheless / nonetheless (formal)',enSub:'More elevated than "sin embargo" — academic register',exEs:'"Los datos son prometedores; no obstante, se requieren más estudios."',exEn:'"The data is promising; nevertheless, further studies are required."',note:'Found in academic papers, official documents, and formal reports.'},
+  {es:'asimismo',type:'Formal Connector',phon:'/a.si.ˈmis.mo/',badge:'badge-c1',badgeTxt:'C1 Formal',en:'likewise / also / furthermore (formal)',enSub:'More formal than "también" — academic and legal contexts',exEs:'"Asimismo, se recomienda revisar la legislación vigente."',exEn:'"Likewise, it is recommended to review the current legislation."',note:'Found in reports, legal texts, and academic writing.'},
+  {es:'pese a',type:'Prepositional Phrase',phon:'/ˈpe.se a/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'in spite of / despite (formal)',enSub:'More formal variant of "a pesar de" — found in literary and academic text',exEs:'"Pese a las dificultades, logró su objetivo."',exEn:'"In spite of the difficulties, she achieved her goal."',note:'Same meaning as "a pesar de" but higher register. Very common in journalism.'},
+  {es:'cuestionar',type:'Verb',phon:'/kwes.tjo.ˈnar/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'to question / to challenge / to call into doubt',enSub:'Not just "to ask a question" — implies challenge or doubt',exEs:'"Es necesario cuestionar los datos presentados."',exEn:'"It is necessary to question the data presented."',note:'Used when challenging or casting doubt — not simply asking.'},
+  {es:'plantear',type:'Verb',phon:'/plan.te.ˈar/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'to raise / to put forward / to propose',enSub:'"Plantear una pregunta" = to pose a question | "plantear un problema" = to raise a problem',exEs:'"El autor plantea una pregunta fundamental."',exEn:'"The author raises a fundamental question."',note:'More formal than "hacer una pregunta." Very common in academic writing.'},
+  {es:'matizar',type:'Verb',phon:'/ma.ti.ˈθar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to nuance / to qualify (a statement)',enSub:'To add nuance or distinguish shades of meaning',exEs:'"Hay que matizar esa afirmación tan general."',exEn:'"That very general statement needs to be qualified/nuanced."',note:'Essential for C1 academic writing. Shows intellectual precision.'},
+  {es:'sostenible',type:'Adjective',phon:'/sos.te.ˈni.βle/',badge:'badge-b2',badgeTxt:'B2 Vocabulary',en:'sustainable',enSub:'Commonly used in environmental and economic contexts',exEs:'"Necesitamos un modelo de desarrollo sostenible."',exEn:'"We need a sustainable development model."',note:'Very high-frequency word in modern Spanish. Also: "desarrollo sostenible" = sustainable development.'},
+  {es:'suscitar',type:'Formal Verb',phon:'/sus.θi.ˈtar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to arouse / to spark / to give rise to',enSub:'Suscitar interés, debate, polémica, dudas…',exEs:'"El debate suscitó gran interés en la prensa."',exEn:'"The debate aroused great interest in the press."',note:'Always followed by abstract nouns: interés, polémica, dudas, debate.'},
+  {es:'trascender',type:'Verb',phon:'/tras.θen.ˈder/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to transcend / to go beyond / to become known',enSub:'Two meanings: to go beyond limits, OR for information to become public',exEs:'"La noticia trascendió a los medios internacionales."',exEn:'"The news reached (became known to) international media."',note:'Context determines which meaning: philosophical transcendence OR news spreading.'},
+  {es:'paliar',type:'Formal Verb',phon:'/pa.ˈljar/',badge:'badge-c1',badgeTxt:'C1 Vocabulary',en:'to alleviate / to mitigate / to palliate',enSub:'To partially reduce the effects of something negative',exEs:'"Las medidas buscan paliar el impacto económico."',exEn:'"The measures seek to mitigate the economic impact."',note:'Used in medical, political, and social contexts. Never implies full elimination.'},
+]},
+idioms:{title:'Idioms & <span>Proverbs</span>',cards:[
+  {es:'no hay mal que por bien no venga',type:'Spanish Proverb',phon:'',badge:'badge-nat',badgeTxt:'Native Level',en:'every cloud has a silver lining',enSub:'Literally: "there is no bad that doesn\'t come from some good"',exEs:'"Perdí ese trabajo, pero encontré uno mejor. No hay mal que por bien no venga."',exEn:'"I lost that job but found a better one. Every cloud has a silver lining."',note:'A very common comforting proverb used when something bad turns out positive.'},
+  {es:'meter la pata',type:'Idiomatic Phrase',phon:'/me.ter la ˈpa.ta/',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to put your foot in your mouth',enSub:'Literally "to put the paw in" — to say something embarrassing',exEs:'"Metí la pata cuando mencioné su ex."',exEn:'"I put my foot in my mouth when I mentioned his ex."',note:'Casual everyday idiom. "La metiste" = you really put your foot in it.'},
+  {es:'dar en el clavo',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to hit the nail on the head',enSub:'Literally "to hit the nail" — to be exactly right',exEs:'"Has dado en el clavo con esa observación."',exEn:'"You\'ve hit the nail on the head with that observation."',note:'Used to compliment someone for saying exactly the right thing.'},
+  {es:'estar en las nubes',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to have your head in the clouds',enSub:'Uses ESTAR (temporary) — not paying attention right now',exEs:'"¡Oye, estás en las nubes! ¿Me escuchas?"',exEn:'"Hey, your head is in the clouds! Are you listening to me?"',note:'"¡Baja de las nubes!" = Come back down to earth!'},
+  {es:'costar un ojo de la cara',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to cost an arm and a leg',enSub:'Literally "to cost an eye from the face" — extremely expensive',exEs:'"Ese abrigo le costó un ojo de la cara."',exEn:'"That coat cost him an arm and a leg."',note:'"Me va a costar un ojo de la cara" = it\'s going to cost a fortune.'},
+  {es:'salió el tiro por la culata',type:'Idiomatic Phrase',phon:'',badge:'badge-c1',badgeTxt:'Advanced C1',en:'it completely backfired',enSub:'Literally "the shot came out through the butt of the gun"',exEs:'"Intentó chantajearle, pero le salió el tiro por la culata."',exEn:'"He tried to blackmail him, but it completely backfired."',note:'Used when a plan produces the exact opposite of what was intended.'},
+  {es:'no te andes por las ramas',type:'Idiomatic Phrase',phon:'',badge:'badge-c1',badgeTxt:'Advanced C1',en:"don't beat around the bush",enSub:'Literally "don\'t walk around the branches" — get to the point',exEs:'"Dímelo directamente, no te andes por las ramas."',exEn:'"Just tell me directly — don\'t beat around the bush."',note:'"¡Al grano!" (To the grain!) is a shorter equivalent.'},
+  {es:'a buenas horas, mangas verdes',type:'Proverb (Ironic)',phon:'',badge:'badge-nat',badgeTxt:'Native Level',en:'too little, too late',enSub:'Sarcastic: help arrived far too late to be of any use',exEs:'"¡Ahora me ofreces ayuda! A buenas horas, mangas verdes."',exEn:'"Now you offer to help! Too little, too late."',note:'Sarcastic/ironic — used when help arrives long after it was needed.'},
+  {es:'echar una mano',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to lend a hand / to help out',enSub:'Literally "to throw a hand" — very natural way to offer help',exEs:'"¿Me puedes echar una mano con esto?"',exEn:'"Can you lend me a hand with this?"',note:'Extremely common. "Échame una mano" = help me out. Very natural spoken Spanish.'},
+  {es:'ponerse las pilas',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to get your act together / to pull your socks up',enSub:'Literally "to put in the batteries" — to start making an effort',exEs:'"Tienes que ponerte las pilas si quieres aprobar."',exEn:'"You need to get your act together if you want to pass."',note:'Often used as a command: "¡Ponte las pilas!" = Get it together!'},
+  {es:'no hay mal que cien años dure',type:'Spanish Proverb',phon:'',badge:'badge-nat',badgeTxt:'Native Level',en:'nothing lasts forever / this too shall pass',enSub:'Literally: "there is no ill that lasts a hundred years"',exEs:'"Estoy triste ahora, pero no hay mal que cien años dure."',exEn:'"I\'m sad now, but this too shall pass."',note:'Used to comfort someone — reassures that difficult times are temporary.'},
+  {es:'tener mala leche',type:'Idiomatic Phrase (Informal)',phon:'',badge:'badge-c1',badgeTxt:'Advanced C1',en:'to be in a bad mood / to be mean-spirited',enSub:'Very informal — literally "to have bad milk"',exEs:'"Hoy tiene una mala leche terrible; no le hables."',exEn:'"He\'s in a terrible mood today — don\'t talk to him."',note:'Can mean grumpy OR naturally mean/nasty in character. Context is key. Informal.'},
+  {es:'quedarse en blanco',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to go blank / to draw a blank',enSub:'Literally "to stay in white" — mind goes completely empty',exEs:'"Me quedé en blanco durante el examen."',exEn:'"My mind went completely blank during the exam."',note:'Used when someone forgets everything suddenly, especially under pressure.'},
+  {es:'tomar el pelo',type:'Idiomatic Phrase',phon:'',badge:'badge-b2',badgeTxt:'Intermediate B2',en:'to pull someone\'s leg / to tease',enSub:'Literally "to take the hair" — to joke or tease someone',exEs:'"¿Me estás tomando el pelo? ¡No puede ser verdad!"',exEn:'"Are you pulling my leg? That can\'t be true!"',note:'"¿Me estás tomando el pelo?" = Are you joking / pulling my leg?'},
+  {es:'hacer la vista gorda',type:'Idiomatic Phrase',phon:'',badge:'badge-c1',badgeTxt:'Advanced C1',en:'to turn a blind eye / to look the other way',enSub:'Literally "to make the fat eye" — deliberately ignore wrongdoing',exEs:'"La dirección hizo la vista gorda ante el fraude."',exEn:'"Management turned a blind eye to the fraud."',note:'Implies deliberate, knowing ignorance. Used in political and social contexts.'},
+]},
+falsefriends:{title:'False <span>Friends</span>',cards:[
+  {es:'embarazada',type:'FALSE FRIEND ⚠️',phon:'/em.ba.ra.ˈθa.ða/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "embarrassed" → means PREGNANT',enSub:'"Embarrassed" in Spanish = avergonzada/o',exEs:'"Está embarazada de ocho meses."',exEn:'"She is eight months pregnant." ← NOT embarrassed!',note:'The most famous false friend. "Avergonzado/a" = embarrassed.'},
+  {es:'éxito',type:'FALSE FRIEND ⚠️',phon:'/ˈek.si.to/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "exit" → means SUCCESS',enSub:'"Exit" in Spanish = salida',exEs:'"La película fue un gran éxito."',exEn:'"The film was a great success." ← NOT exit!',note:'"Exit" = "salida." "Éxito" evolved from Latin to mean success or achievement.'},
+  {es:'sensible',type:'FALSE FRIEND ⚠️',phon:'/sen.ˈsi.βle/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "sensible" (reasonable) → means SENSITIVE',enSub:'"Sensible" (reasonable) in Spanish = sensato/a',exEs:'"Es muy sensible; llora con las películas."',exEn:'"She is very sensitive; she cries at movies." ← NOT sensible!',note:'"Sensato/a" = sensible/reasonable. A very common mistake!'},
+  {es:'actual',type:'FALSE FRIEND ⚠️',phon:'/ak.ˈtwal/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "actual" (real) → means CURRENT / PRESENT',enSub:'"Actual" (real/genuine) in Spanish = real / verdadero',exEs:'"El gobierno actual lleva tres años en el poder."',exEn:'"The current government has been in power for 3 years."',note:'"Real" or "verdadero/a" = actual/genuine. "Actual" = of the present moment.'},
+  {es:'realizar',type:'FALSE FRIEND ⚠️',phon:'/re.a.li.ˈθar/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "to realize" (become aware) → TO CARRY OUT / ACHIEVE',enSub:'"To realize" (become aware) = darse cuenta de',exEs:'"Realizó sus sueños a los 30 años."',exEn:'"She fulfilled/achieved her dreams at 30."',note:'"Darse cuenta de" = to realize/become aware. "Realizar" = to accomplish.'},
+  {es:'molestar',type:'FALSE FRIEND ⚠️',phon:'/mo.les.ˈtar/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 Sounds alarming but just means TO BOTHER / TO ANNOY',enSub:'A perfectly normal, polite Spanish verb',exEs:'"¿Te molesta si abro la ventana?"',exEn:'"Do you mind if I open the window? / Does it bother you?"',note:'Completely innocent word. "No me molestes" = Don\'t bother me.'},
+  {es:'largo',type:'FALSE FRIEND ⚠️',phon:'/ˈlar.ɣo/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "large" → means LONG',enSub:'"Large" (big in size) in Spanish = grande',exEs:'"Es una calle muy larga."',exEn:'"It is a very long street." ← NOT a large street!',note:'"Grande" = large/big. "Largo" = long (length). "Un largo camino" = a long journey.'},
+  {es:'constipado',type:'FALSE FRIEND ⚠️',phon:'/kons.ti.ˈpa.ðo/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "constipated" → means having a COLD',enSub:'"Constipated" in Spanish = estreñido/a',exEs:'"Estoy constipado y me duele la cabeza."',exEn:'"I have a cold and my head hurts."',note:'"Estreñido/a" = constipated. "Constipado" = common cold. Hugely embarrassing mix-up!'},
+  {es:'gracioso',type:'FALSE FRIEND ⚠️',phon:'/ɡra.ˈθjo.so/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "gracious" → means FUNNY / AMUSING',enSub:'"Gracious" (kind/polite) in Spanish = amable / cortés',exEs:'"¡Qué chiste más gracioso!"',exEn:'"What a funny joke!" ← NOT a gracious joke!',note:'"Amable" = gracious/kind. "Gracioso" = funny, amusing.'},
+  {es:'pretender',type:'FALSE FRIEND ⚠️',phon:'/pre.ten.ˈder/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "to pretend" → means TO INTEND / TO EXPECT',enSub:'"To pretend" = fingir / hacerse el/la',exEs:'"Pretendo terminar el proyecto este mes."',exEn:'"I intend to finish the project this month."',note:'"Fingir" = to pretend/fake. "Pretender" = to attempt or aim to do something.'},
+  {es:'librería',type:'FALSE FRIEND ⚠️',phon:'/li.βre.ˈri.a/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "library" → means BOOKSHOP / BOOKSTORE',enSub:'"Library" (public books) in Spanish = biblioteca',exEs:'"Compré este libro en la librería del centro."',exEn:'"I bought this book at the bookshop downtown."',note:'"Biblioteca" = library (borrow books free). "Librería" = bookshop (buy books).'},
+  {es:'ropa',type:'FALSE FRIEND ⚠️',phon:'/ˈro.pa/',badge:'badge-warn',badgeTxt:'Watch Out!',en:'🚫 NOT "rope" → means CLOTHES / CLOTHING',enSub:'"Rope" in Spanish = cuerda / soga',exEs:'"Necesito comprar ropa para el invierno."',exEn:'"I need to buy clothes for winter." ← NOT rope!',note:'"Cuerda" or "soga" = rope. "Ropa" = clothing/garments. Very common mistake!'},
+]},
+formal:{title:'Formal <span>Spanish</span>',cards:[
+  {es:'cabe señalar que',type:'Formal Discourse Marker',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'it should be noted that / it is worth pointing out',enSub:'Avoids starting with "I" — objective, academic tone',exEs:'"Cabe señalar que los resultados son aún preliminares."',exEn:'"It should be noted that the results are still preliminary."',note:'Used in academic writing to introduce an important observation objectively.'},
+  {es:'en aras de',type:'Formal Prepositional Phrase',phon:'/en ˈa.ras ðe/',badge:'badge-c1',badgeTxt:'C1 Formal',en:'in the interest of / for the sake of',enSub:'Found in official documents, speeches, and formal writing',exEs:'"En aras de la transparencia, publicamos todos los datos."',exEn:'"In the interest of transparency, we publish all data."',note:'More elevated than "para" or "por el bien de." Common in political speeches.'},
+  {es:'suscribir',type:'Formal Verb',phon:'/sus.kri.ˈβir/',badge:'badge-c1',badgeTxt:'C1 Formal',en:'to endorse / to fully support (a statement)',enSub:'To endorse or fully agree with a position or declaration',exEs:'"Suscribo plenamente las conclusiones del informe."',exEn:'"I fully endorse the conclusions of the report."',note:'In formal contexts means to endorse an idea; also literally to subscribe.'},
+  {es:'en lo que respecta a',type:'Formal Discourse Marker',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'with regard to / as far as … is concerned',enSub:'Used to introduce a specific sub-topic formally',exEs:'"En lo que respecta a la financiación, se han propuesto varias soluciones."',exEn:'"With regard to financing, several solutions have been proposed."',note:'Equivalent to English "regarding" or "with respect to."'},
+  {es:'en virtud de',type:'Formal Legal Phrase',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'by virtue of / pursuant to / under',enSub:'Used in legal, official, and institutional documents',exEs:'"En virtud del artículo 5, se procederá al cierre."',exEn:'"By virtue of Article 5, closure proceedings will begin."',note:'Very common in legal writing and official decisions. Similar to "por medio de."'},
+  {es:'cabe destacar',type:'Formal Discourse Marker',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'it is worth highlighting / it should be emphasized',enSub:'Used to draw attention to a key point in an objective way',exEs:'"Cabe destacar que los beneficios superaron lo esperado."',exEn:'"It is worth highlighting that benefits exceeded expectations."',note:'One of the most useful formal discourse markers for academic writing.'},
+  {es:'con vistas a',type:'Formal Prepositional Phrase',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'with a view to / with the aim of',enSub:'Expresses purpose or future goal in formal/written contexts',exEs:'"Se reunieron con vistas a llegar a un acuerdo."',exEn:'"They met with a view to reaching an agreement."',note:'More formal than "para." Common in business and diplomatic communication.'},
+  {es:'dar lugar a',type:'Formal Verbal Phrase',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'to give rise to / to lead to / to result in',enSub:'Formal way to describe causality — more precise than "causar"',exEs:'"La crisis dio lugar a importantes cambios legislativos."',exEn:'"The crisis gave rise to important legislative changes."',note:'Always followed by nouns. "Dio lugar a..." = led to / resulted in...'},
+  {es:'en el marco de',type:'Formal Prepositional Phrase',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'within the framework of / in the context of',enSub:'Common in academic, institutional, and political language',exEs:'"En el marco de la nueva ley, se adoptaron medidas adicionales."',exEn:'"Within the framework of the new law, additional measures were adopted."',note:'Essential for academic and political writing. Sets the broader context.'},
+  {es:'a tenor de',type:'Formal Phrase',phon:'',badge:'badge-c1',badgeTxt:'C1 Formal',en:'in light of / judging by / in view of',enSub:'Based on or in accordance with — formal register only',exEs:'"A tenor de los datos disponibles, la situación es preocupante."',exEn:'"In light of the available data, the situation is worrying."',note:'Found in journalistic and legal writing. More formal than "según" or "de acuerdo con."'},
+]},
+};
+
+const QUIZ = [
+  {cat:'grammar',catL:'Grammar',qEs:'¿Cuál es el subjuntivo presente de "tener" para "nosotros"?',qEn:'Which is the present subjunctive of "tener" (to have) for "we"?',instr:'Choose the correct subjunctive conjugation',opts:[{es:'tengamos',en:'that we have'},{es:'tenemos',en:'we have (indicative)'},{es:'teníamos',en:'we had (imperfect)'},{es:'tuviéramos',en:'we had (imperfect subj.)'}],correct:0,expl:'✓ <strong>tengamos</strong> — present subjunctive of tener for nosotros. Tener is irregular: stem = teng-. Used after: "Espero que tengamos tiempo."'},
+  {cat:'grammar',catL:'Grammar',qEs:'"Lo haré _____ ti" — para expresar que lo haces como regalo',qEn:'"I will do it _____ you" — meaning as a gift intended for you',instr:'Por or Para?',opts:[{es:'por',en:'because of / on behalf of'},{es:'para',en:'intended for / as a gift'},{es:'Ambas sirven',en:'Both work here'},{es:'con',en:'with'}],correct:1,expl:'✓ <strong>para</strong> — PARA indicates recipient/beneficiary. "Lo haré para ti" = I\'ll do it for you (for your benefit). "Por ti" = because of you — very different!'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Está embarazada." ¿Qué significa?',qEn:'A Spanish speaker says: "Está embarazada." What does this mean?',instr:'Famous false friend — be careful!',opts:[{es:'Está avergonzada',en:'She is embarrassed'},{es:'Está embarazada',en:'She is pregnant'},{es:'Está enojada',en:'She is angry'},{es:'Está asustada',en:'She is scared'}],correct:1,expl:'✓ <strong>She is pregnant!</strong> "Embarazada" means PREGNANT. "Embarrassed" = avergonzada. The most famous Spanish-English false friend!'},
+  {cat:'grammar',catL:'Grammar',qEs:'"Si _____ más, habría sacado mejores notas."',qEn:'"If I had studied more, I would have gotten better grades."',instr:'Third conditional — choose the correct form',opts:[{es:'hubiera estudiado',en:'had studied (pluperfect subj.)'},{es:'estudiaría',en:'would study (conditional)'},{es:'había estudiado',en:'had studied (pluperfect ind.)'},{es:'estudiara',en:'studied (imperfect subj.)'}],correct:0,expl:'✓ <strong>hubiera estudiado</strong> — third conditional uses "si + pluperfect subjunctive" in the if-clause and "conditional perfect (habría + participle)" in the result.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'¿Qué significa "sin embargo"?',qEn:'What does "sin embargo" mean in English?',instr:'Choose the most accurate translation',opts:[{es:'por tanto',en:'therefore / as a result'},{es:'además',en:'furthermore / in addition'},{es:'sin embargo',en:'however / nevertheless'},{es:'a pesar de',en:'despite / in spite of'}],correct:2,expl:'✓ <strong>however / nevertheless</strong> — "sin embargo" introduces a contrast. "Por tanto" = therefore; "además" = furthermore; "a pesar de" = despite. All very different!'},
+  {cat:'grammar',catL:'Grammar',qEs:'"Ella ___ cansada" — estado temporal, en este momento',qEn:'"She is tired right now" — which verb fills the blank?',instr:'Ser (es) or Estar (está)?',opts:[{es:'es cansada (ser)',en:'is a tiring person (permanent)'},{es:'está cansada (estar)',en:'is tired right now (temporary)'},{es:'sea cansada',en:'subjunctive — not applicable'},{es:'fue cansada',en:'was tired (preterite)'}],correct:1,expl:'✓ <strong>está cansada</strong> — temporary states use ESTAR. "Es cansada" would mean she is a tiring/exhausting person permanently.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Llevo tres horas estudiando." ¿Qué expresa esto?',qEn:'What does "Llevo tres horas estudiando" mean?',instr:'Choose the correct English translation',opts:[{es:'Estudié 3 horas (terminado)',en:'I studied for 3 hours (finished)'},{es:'He estudiado 3 horas (sigo)',en:"I've been studying for 3 hours (ongoing)"},{es:'Solía estudiar 3 horas',en:'I used to study for 3 hours'},{es:'Estudiaré 3 horas',en:'I will study for 3 hours'}],correct:1,expl:'✓ <strong>"I\'ve been studying for 3 hours"</strong> — "llevar + gerund" = ongoing action still continuing NOW. Compare: "Estudié 3 horas" = I studied for 3 hours (completed, done).'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Dar en el clavo" — ¿qué significa este modismo?',qEn:'"Dar en el clavo" — what does this idiom mean?',instr:'Choose the correct English equivalent',opts:[{es:'Clavar algo en la pared',en:'To nail something to the wall'},{es:'Acertar perfectamente',en:'To hit the nail on the head / be exactly right'},{es:'Sufrir algo doloroso',en:'To suffer something painful'},{es:'Construir algo bien',en:'To build something well'}],correct:1,expl:'✓ <strong>To hit the nail on the head</strong> — "dar en el clavo" literally means "to hit the nail" and means someone identified something exactly right.'},
+  {cat:'grammar',catL:'Grammar',qEs:'Estilo indirecto: "Voy al mercado" → Ella dijo que ___',qEn:'Reported speech: "I\'m going to the market" → She said she ___',instr:'Choose the correct reported form',opts:[{es:'...iba al mercado',en:'...was going to the market'},{es:'...va al mercado',en:'...is going to the market'},{es:'...fue al mercado',en:'...went to the market'},{es:'...iría al mercado',en:'...would go to the market'}],correct:0,expl:'✓ <strong>iba al mercado</strong> — in reported speech with past reporting verb, present → imperfect. Exactly like English: "I\'m going" → "she said she was going."'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'¿Qué significa el verbo "conllevar"?',qEn:'What does "conllevar" mean?',instr:'Choose the best English translation',opts:[{es:'Llevar cosas juntas',en:'To carry things together'},{es:'Implicar como consecuencia',en:'To entail / to bring about as a consequence'},{es:'Superar un obstáculo',en:'To overcome an obstacle'},{es:'Colaborar en algo',en:'To collaborate on something'}],correct:1,expl:'✓ <strong>to entail / to bring about</strong> — "conllevar" means something naturally leads to a consequence. More formal and specific than "implicar."'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'¿Cuál es el verdadero significado de "actual" en español?',qEn:'What does the Spanish word "actual" really mean?',instr:'Careful — this is a false friend!',opts:[{es:'real / verdadero',en:'actual / real / genuine'},{es:'actual / presente',en:'current / present / of today'},{es:'exacto / preciso',en:'exact / precise'},{es:'importante',en:'important'}],correct:1,expl:'✓ <strong>current / present</strong> — "actual" in Spanish = of the present moment, not "actual" (real/genuine). "Real" or "verdadero" = actual/genuine. Very common false friend!'},
+  {cat:'grammar',catL:'Grammar',qEs:'¿Cuándo se usa "para" y no "por" en esta frase: "Estudia _____ ser médico"?',qEn:'When do you use "para" in: "She studies _____ become a doctor"?',instr:'Choose the correct preposition and reason',opts:[{es:'para (propósito / meta)',en:'para (purpose / goal)'},{es:'por (causa / razón)',en:'por (cause / reason)'},{es:'a (dirección)',en:'a (direction)'},{es:'de (origen)',en:'de (origin)'}],correct:0,expl:'✓ <strong>para (purpose/goal)</strong> — PARA expresses the purpose or goal of an action. "Estudia para ser médico" = She studies in order to become a doctor. This is a classic PARA use.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Echar una mano" — ¿qué significa?',qEn:'What does "echar una mano" mean?',instr:'Choose the correct English meaning',opts:[{es:'Tirar la mano de alguien',en:'To throw someone\'s hand'},{es:'Ayudar a alguien',en:'To lend a hand / to help out'},{es:'Aplaudir a alguien',en:'To applaud someone'},{es:'Saludar a alguien',en:'To wave at someone'}],correct:1,expl:'✓ <strong>to lend a hand / to help out</strong> — "echar una mano" is one of the most natural and common ways to offer help in spoken Spanish. "¿Me echas una mano?" = Can you help me out?'},
+  {cat:'grammar',catL:'Grammar',qEs:'"Acabo de llegar" — ¿qué expresa esta perífrasis verbal?',qEn:'What does "Acabo de llegar" express?',instr:'Choose the correct English equivalent',opts:[{es:'Estoy llegando ahora',en:'I am arriving right now'},{es:'Llegué hace mucho tiempo',en:'I arrived a long time ago'},{es:'Acabo de llegar (hace muy poco)',en:"I have just arrived (moments ago)"},{es:'Llegaré pronto',en:'I will arrive soon'}],correct:2,expl:'✓ <strong>"I have just arrived"</strong> — "acabar de + infinitive" expresses an action completed very recently. "Acabo de comer" = I have just eaten. Extremely common and natural.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Quedarse en blanco" — ¿qué le pasa a esa persona?',qEn:'Someone says "me quedé en blanco." What happened to them?',instr:'Choose the best description',opts:[{es:'Se pintó la cara de blanco',en:'They painted their face white'},{es:'Su mente quedó completamente vacía',en:'Their mind went completely blank'},{es:'Se quedaron sin papel',en:'They ran out of paper'},{es:'Perdieron todos sus archivos',en:'They lost all their files'}],correct:1,expl:'✓ <strong>Their mind went completely blank</strong> — "quedarse en blanco" = total mental blank, usually under pressure (exams, speeches). "Me quedé en blanco en el examen" = My mind went blank in the exam.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'¿Qué significa "pese a" y cómo es diferente de "a pesar de"?',qEn:'What does "pese a" mean and how does it differ from "a pesar de"?',instr:'Choose the most accurate description',opts:[{es:'Diferente significado: pese = pero',en:'Different meaning: pese a = but'},{es:'Mismo significado, pese a es más formal',en:'Same meaning — pese a is more formal/literary'},{es:'Diferente significado: pese = debido a',en:'Different meaning: pese a = due to'},{es:'Pese a solo se usa con verbos',en:'Pese a is only used with verbs'}],correct:1,expl:'✓ <strong>Same meaning, pese a is more formal</strong> — both mean "despite / in spite of" but "pese a" is higher register, preferred in journalism and literary writing over "a pesar de."'},
+  {cat:'grammar',catL:'Grammar',qEs:'¿Qué frase es correcta para hablar del pasado hipotético?',qEn:'Which sentence correctly expresses a hypothetical past situation?',instr:'Choose the correct third conditional',opts:[{es:'Si tenía tiempo, lo haría.',en:'If I had time, I would do it.'},{es:'Si hubiera tenido tiempo, lo habría hecho.',en:'If I had had time, I would have done it.'},{es:'Si tenga tiempo, lo hago.',en:'If I have time, I do it.'},{es:'Si tendría tiempo, lo haría.',en:'If I would have time, I would do it.'}],correct:1,expl:'✓ <strong>"Si hubiera tenido tiempo, lo habría hecho"</strong> — third conditional (past hypothetical): si + pluperfect subjunctive + conditional perfect. Expresses what would have happened.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Librería" en español, ¿qué significa?',qEn:'"Librería" in Spanish — what does it actually mean?',instr:'Another famous false friend!',opts:[{es:'Biblioteca (para tomar libros prestados)',en:'Library (to borrow books for free)'},{es:'Librería (para comprar libros)',en:'Bookshop / bookstore (to buy books)'},{es:'Sala de lectura',en:'Reading room'},{es:'Editorial (donde imprimen libros)',en:'Publisher (where books are printed)'}],correct:1,expl:'✓ <strong>Bookshop / bookstore</strong> — "librería" = where you BUY books. "Biblioteca" = public library where you borrow books for free. Very common false friend for English speakers!'},
+  {cat:'grammar',catL:'Grammar',qEs:'"La sopa es rica" vs "La sopa está rica" — ¿cuál es la diferencia?',qEn:'"La sopa es rica" vs "la sopa está rica" — what is the difference?',instr:'Ser vs Estar with adjectives',opts:[{es:'No hay diferencia, son iguales',en:'No difference — they mean the same'},{es:'Es rica = siempre; está rica = ahora',en:'Es rica = always (by nature) | está rica = right now (this serving)'},{es:'Es rica = solo hoy; está rica = siempre',en:'Es rica = only today | está rica = always'},{es:'Solo se puede usar "es"',en:'Only "es" can be used here'}],correct:1,expl:'✓ <strong>"es rica" = always delicious (by nature) | "está rica" = tastes great right now</strong> — this is the key SER vs ESTAR distinction with adjectives. The same adjective changes meaning depending on which verb is used.'},
+  {cat:'vocabulary',catL:'Vocabulary',qEs:'"Hacer la vista gorda" — ¿qué significa este modismo?',qEn:'What does "hacer la vista gorda" mean?',instr:'Choose the correct meaning',opts:[{es:'Mirar algo fijamente',en:'To stare at something intensely'},{es:'Ignorar algo a propósito',en:'To turn a blind eye / look the other way deliberately'},{es:'Quedarse dormido',en:'To fall asleep'},{es:'Exagerar lo que se ve',en:'To exaggerate what one sees'}],correct:1,expl:'✓ <strong>To turn a blind eye</strong> — "hacer la vista gorda" means deliberately ignoring wrongdoing or something one should act on. "La dirección hizo la vista gorda" = management turned a blind eye.'},
+];
+
+const PHRASES = [
+  {lv:'intermediate',es:'No me des más largas.',en:"Stop stalling. Don't keep putting me off.",ctx:'When someone keeps making excuses to delay.'},
+  {lv:'intermediate',es:'Estoy en un aprieto.',en:"I'm in a tight spot / a difficult situation.",ctx:'A common everyday phrase for trouble.'},
+  {lv:'intermediate',es:'Me alegro un montón.',en:"I'm really glad / thrilled about it.",ctx:'"Un montón" = a ton. Very natural spoken Spanish.'},
+  {lv:'intermediate',es:'¡Qué va!',en:"No way! Not at all! Come on!",ctx:'Strong disagreement or disbelief. Very colloquial.'},
+  {lv:'intermediate',es:'Más o menos.',en:"More or less. / More-or-less. / So-so.",ctx:'The classic vague response to "how are you?"'},
+  {lv:'intermediate',es:'A ver.',en:"Let\'s see. / Let\'s have a look. / Hmm.",ctx:'Filler phrase — used constantly in everyday speech.'},
+  {lv:'intermediate',es:'Menos mal.',en:"Thank goodness! / What a relief! / Just as well.",ctx:'Expressing relief that something bad didn\'t happen.'},
+  {lv:'intermediate',es:'¡Ni hablar!',en:"No way! Absolutely not! Out of the question!",ctx:'Definitive refusal. Stronger than "no."'},
+  {lv:'intermediate',es:'Se me fue de la cabeza.',en:"It slipped my mind. / I completely forgot about it.",ctx:'Natural way to apologize for forgetting something.'},
+  {lv:'intermediate',es:'Ya que estamos…',en:"While we\'re at it… / Since we\'re here anyway…",ctx:'Used to suggest doing something extra since you\'re already there.'},
+  {lv:'advanced',es:'No hay que darle más vueltas al asunto.',en:"There\'s no need to overthink this. Stop going in circles.",ctx:'Telling someone to stop deliberating and just decide.'},
+  {lv:'advanced',es:'Me tiene sin cuidado.',en:"I couldn\'t care less about it.",ctx:'Stronger and more dismissive than "no me importa."'},
+  {lv:'advanced',es:'Salió el tiro por la culata.',en:'It completely backfired.',ctx:'When a plan produces the exact opposite intended.'},
+  {lv:'advanced',es:'No te andes por las ramas.',en:"Don\'t beat around the bush. Get to the point.",ctx:'Telling someone to stop being indirect.'},
+  {lv:'advanced',es:'Cabe destacar que...',en:'It is worth noting that... / It should be highlighted...',ctx:'Formal discourse marker for academic writing.'},
+  {lv:'advanced',es:'Tengo el presentimiento de que…',en:"I have a feeling that… / My gut tells me that…",ctx:'"Presentimiento" = gut feeling or premonition.'},
+  {lv:'advanced',es:'¡No faltaba más!',en:"Of course! My pleasure! Don\'t mention it!",ctx:'Very natural response to a request or thanks.'},
+  {lv:'advanced',es:'Está en juego.',en:"It\'s at stake. / It\'s on the line.",ctx:'Used when something important could be won or lost.'},
+  {lv:'advanced',es:'A raíz de esto…',en:"As a result of this… / Following on from this…",ctx:'Formal connector — used in writing and speeches.'},
+  {lv:'advanced',es:'Dicho esto, cabe preguntarse si…',en:"That said, one might ask whether…",ctx:'Academic writing — introduces a counterargument.'},
+  {lv:'native',es:'Al mal tiempo, buena cara.',en:'Make the best of a bad situation. Keep smiling.',ctx:'Proverb: stay positive no matter what.'},
+  {lv:'native',es:'Le dio calabazas.',en:'She turned him down romantically. She rejected him.',ctx:'Literally "gave him squashes" — romantic rejection.'},
+  {lv:'native',es:'A buenas horas, mangas verdes.',en:'Too little, too late.',ctx:'Sarcastic — when help arrives long after it was needed.'},
+  {lv:'native',es:'Entre pitos y flautas, se fue el día.',en:"Between one thing and another, the day just slipped away.",ctx:'When the day gets eaten up by small tasks and distractions.'},
+  {lv:'native',es:'Donde dije digo, digo Diego.',en:"I\'m taking back what I said. I\'m changing my story.",ctx:'Tongue-twister phrase for when someone contradicts themselves.'},
+  {lv:'native',es:'Camarón que se duerme, se lo lleva la corriente.',en:"If you snooze, you lose. / You have to stay alert.",ctx:'Proverb: those who are inattentive lose their opportunities.'},
+  {lv:'native',es:'Más vale tarde que nunca.',en:"Better late than never.",ctx:'Classic proverb used when something finally happens after a delay.'},
+  {lv:'native',es:'No todo lo que reluce es oro.',en:"All that glitters is not gold.",ctx:'Proverb — appearances can be deceiving.'},
+  {lv:'native',es:'Ojos que no ven, corazón que no siente.',en:"Out of sight, out of mind.",ctx:'Literally "eyes that don\'t see, heart that doesn\'t feel."'},
+  {lv:'native',es:'Del dicho al hecho hay un gran trecho.',en:"Easier said than done. There's a big gap between words and actions.",ctx:'Proverb — saying something is much easier than doing it.'},
+
+  // ── BEGINNER A2–B1 ──────────────────────────────────────────
+  {lv:'beginner',es:'¿Podría hablar más despacio, por favor?',en:'Could you speak more slowly, please?',ctx:'Formal polite request to slow down — useful in real conversations.'},
+  {lv:'beginner',es:'¿Puede repetir eso, por favor?',en:'Could you repeat that, please?',ctx:'Essential survival phrase for beginners.'},
+  {lv:'beginner',es:'No lo entiendo del todo.',en:"I don't quite understand it fully.",ctx:'"Del todo" = completely. Useful when partially following a conversation.'},
+  {lv:'beginner',es:'¿Cómo se dice ___ en español?',en:'How do you say ___ in Spanish?',ctx:'Template phrase for any learner. "Se dice..." = you say it...'},
+  {lv:'beginner',es:'Estoy aprendiendo español.',en:"I'm learning Spanish.",ctx:'Lets people know your level — they will usually adjust.'},
+  {lv:'beginner',es:'¿Qué significa esta palabra?',en:'What does this word mean?',ctx:'Ask about unknown vocabulary in context.'},
+  {lv:'beginner',es:'¿Dónde está el baño?',en:'Where is the bathroom / toilet?',ctx:'Non-negotiable first phrase for any traveller.'},
+  {lv:'beginner',es:'¿Cuánto cuesta?',en:'How much does it cost?',ctx:'Fundamental shopping phrase.'},
+  {lv:'beginner',es:'¿A qué hora abre / cierra?',en:'What time does it open / close?',ctx:'Essential for shops, museums, restaurants.'},
+  {lv:'beginner',es:'Me gustaría reservar una mesa para dos.',en:"I'd like to reserve a table for two.",ctx:'Restaurant booking — polite conditional "me gustaría" = I would like.'},
+  {lv:'beginner',es:'La cuenta, por favor.',en:'The bill, please.',ctx:'Calling for the check — simple and direct.'},
+  {lv:'beginner',es:'¿Tiene algo más barato?',en:'Do you have anything cheaper?',ctx:'Useful in markets and shops.'},
+  {lv:'beginner',es:'¿Me puede escribir eso?',en:'Can you write that down for me?',ctx:'When you hear something you can\'t catch — ask them to write it.'},
+  {lv:'beginner',es:'Tengo una pregunta.',en:'I have a question.',ctx:'Simple opener before asking something.'},
+  {lv:'beginner',es:'No hablo español muy bien.',en:"I don't speak Spanish very well.",ctx:'Honest opener — people tend to be more patient and helpful.'},
+  {lv:'beginner',es:'¿Habla usted inglés?',en:'Do you speak English?',ctx:'Formal "usted" form — appropriate with strangers.'},
+  {lv:'beginner',es:'¿Puede ayudarme?',en:'Can you help me?',ctx:'Simple request for help.'},
+  {lv:'beginner',es:'Perdone, ¿me equivoqué?',en:'Excuse me, did I make a mistake?',ctx:'Useful when you\'re unsure if you said something correctly.'},
+
+  // ── INTERMEDIATE B2 (additional) ────────────────────────────
+  {lv:'intermediate',es:'A ver qué pasa.',en:"Let's see what happens. / We'll see.",ctx:'Neutral attitude — waiting to see how things develop.'},
+  {lv:'intermediate',es:'¿Qué te parece si...?',en:'What do you think about...? / How about...?',ctx:'Softer way to make a suggestion — very common.'},
+  {lv:'intermediate',es:'No me cuadra.',en:"It doesn't add up. / It doesn't seem right to me.",ctx:'"Cuadrar" = to square/add up. Used when something feels off.'},
+  {lv:'intermediate',es:'Está por ver.',en:"It remains to be seen. / That's not certain yet.",ctx:'Expressing uncertainty about whether something will happen.'},
+  {lv:'intermediate',es:'Menos mal.',en:"Thank goodness! / What a relief! / Just as well.",ctx:'Expressing relief that something bad didn\'t happen.'},
+  {lv:'intermediate',es:'¡Ni hablar!',en:"No way! Absolutely not! Out of the question!",ctx:'Definitive refusal. Much stronger than just "no."'},
+  {lv:'intermediate',es:'Se me fue de la cabeza.',en:"It slipped my mind. / I completely forgot about it.",ctx:'Natural way to apologise for forgetting something.'},
+  {lv:'intermediate',es:'Ya que estamos…',en:"While we're at it… / Since we're here anyway…",ctx:'Used to suggest doing something extra since you\'re already there.'},
+  {lv:'intermediate',es:'Me quedo con las ganas.',en:"I'm left wanting more. / I didn't get what I hoped for.",ctx:'Used when something anticipated doesn\'t happen or isn\'t enough.'},
+  {lv:'intermediate',es:'A estas alturas ya no importa.',en:"At this point / stage it no longer matters.",ctx:'"A estas alturas" = at this point in time. Implies it\'s too late.'},
+  {lv:'intermediate',es:'No sé a qué viene eso.',en:"I don't know where that's coming from. / What's that about?",ctx:'"A qué viene" = what is the reason/motivation for...'},
+  {lv:'intermediate',es:'Ya me dirás.',en:"Let me know how it goes. / Tell me later.",ctx:'Used when you expect news and will wait to hear the outcome.'},
+  {lv:'intermediate',es:'Me da igual.',en:"I don't mind either way. / It's all the same to me.",ctx:'Neutral — neither preference. Less dismissive than "me da lo mismo."'},
+  {lv:'intermediate',es:'¡Venga, va!',en:"Come on then! / Alright then! / Let's go!",ctx:'Colloquial agreement or encouragement — very Spanish.'},
+  {lv:'intermediate',es:'Tener ganas de + infinitivo',en:'To be looking forward to / to feel like doing something',ctx:'"Tengo muchas ganas de verte" = I\'m really looking forward to seeing you.'},
+  {lv:'intermediate',es:'¿En qué quedamos?',en:"So what's the plan? / What are we doing then?",ctx:'Requesting a final decision after a discussion — very common.'},
+  {lv:'intermediate',es:'Según y cómo.',en:"It depends. / It all depends how.",ctx:'More expressive and colloquial than just "depende."'},
+  {lv:'intermediate',es:'No me lo esperaba.',en:"I wasn't expecting that. / I didn't see that coming.",ctx:'"Esperar" = to expect. "No me lo esperaba" = I had no expectation of this.'},
+  {lv:'intermediate',es:'Hay que ver.',en:"Well, I never. / How about that. / Goodness.",ctx:'Mild exclamation of surprise or comment — filler phrase.'},
+  {lv:'intermediate',es:'Perder el hilo.',en:'To lose the thread. / To lose track of what you were saying.',ctx:'"Perdí el hilo" = I lost track. Common in conversations and lectures.'},
+  {lv:'intermediate',es:'Estar al tanto.',en:"To be up to date. / To be in the loop.",ctx:'"Tenme al tanto" = Keep me posted. "¿Estás al tanto?" = Are you in the loop?'},
+  {lv:'intermediate',es:'Dar por hecho.',en:'To take for granted. / To assume as certain.',ctx:'"No des por hecho que vendré" = Don\'t assume I\'ll come.'},
+  {lv:'intermediate',es:'Sacar partido de algo.',en:'To make the most of something. / To take advantage of an opportunity.',ctx:'Positive use of "take advantage" — to use something well.'},
+  {lv:'intermediate',es:'En todo caso.',en:"In any case. / Either way. / Whatever happens.",ctx:'Formal connector — introduces a fallback or conclusion.'},
+  {lv:'intermediate',es:'Me pone de buen/mal humor.',en:'It puts me in a good/bad mood.',ctx:'"Poner de humor" = to put someone in a mood. Essential emotional expression.'},
+
+  // ── ADVANCED C1 (additional) ─────────────────────────────────
+  {lv:'advanced',es:'No hay que ponerse en lo peor.',en:"There's no need to assume the worst.",ctx:'Advising against catastrophising before knowing the outcome.'},
+  {lv:'advanced',es:'Eso deja mucho que desear.',en:'That leaves a lot to be desired.',ctx:'"Dejar que desear" = to leave something to be desired. Direct criticism.'},
+  {lv:'advanced',es:'Hay que ponerse en su lugar.',en:"You have to put yourself in their shoes.",ctx:'"Ponerse en el lugar de alguien" = to empathise, see their perspective.'},
+  {lv:'advanced',es:'Tengo el presentimiento de que…',en:"I have a feeling that… / My gut says that…",ctx:'"Presentimiento" = gut feeling, premonition. More specific than "creo que."'},
+  {lv:'advanced',es:'¡No faltaba más!',en:"Of course! My pleasure! / What do you expect?",ctx:'Depends on tone — can be warm ("of course!") or ironic ("what next?!").'},
+  {lv:'advanced',es:'Está en juego.',en:"It's at stake. / It's on the line.",ctx:'Used when something important could be won or lost.'},
+  {lv:'advanced',es:'A raíz de esto…',en:"As a result of this… / Following on from this…",ctx:'Formal connector introducing a consequence from a specific event.'},
+  {lv:'advanced',es:'Dicho esto, cabe preguntarse si…',en:"That said, one might ask whether…",ctx:'Academic writing — introduces a counterargument or qualification.'},
+  {lv:'advanced',es:'No es oro todo lo que reluce.',en:"All that glitters is not gold.",ctx:'Proverb warning that appearances can be deceiving.'},
+  {lv:'advanced',es:'En lo que atañe a este asunto…',en:'As regards this matter… / Insofar as this matter is concerned…',ctx:'Very formal written register — introduces a specific topic.'},
+  {lv:'advanced',es:'Merece la pena reflexionar sobre…',en:"It's worth reflecting on… / It merits consideration…",ctx:'Used in essays and speeches to introduce an important point.'},
+  {lv:'advanced',es:'Cabe plantearse si…',en:"One might ask whether… / The question arises as to whether…",ctx:'Academic — raises a question without asserting an answer.'},
+  {lv:'advanced',es:'Sin lugar a dudas.',en:"Without a doubt. / There's no question about it.",ctx:'Stronger than "sin duda" — emphatic and absolute.'},
+  {lv:'advanced',es:'A grandes rasgos.',en:"Broadly speaking. / In broad strokes. / In general terms.",ctx:'Used to give a summary before going into detail.'},
+  {lv:'advanced',es:'Llegados a este punto…',en:"At this point… / Having reached this stage…",ctx:'Formal — signals a key moment in an argument or narrative.'},
+  {lv:'advanced',es:'Pese a todo.',en:"Despite everything. / In spite of it all.",ctx:'Strong concessive connector. More literary than "a pesar de todo."'},
+  {lv:'advanced',es:'Cada vez más.',en:"More and more. / Increasingly.",ctx:'Very common in writing and speech. "Es cada vez más difícil" = It is increasingly difficult.'},
+  {lv:'advanced',es:'Hasta cierto punto.',en:"Up to a point. / To a certain extent.",ctx:'Used to qualify a statement — agree partially but not fully.'},
+  {lv:'advanced',es:'No hay que subestimar…',en:"One shouldn't underestimate…",ctx:'Common in academic writing and opinion pieces.'},
+  {lv:'advanced',es:'En última instancia.',en:"Ultimately. / In the final analysis. / At the end of the day.",ctx:'Formal — introduces the most fundamental point or conclusion.'},
+  {lv:'advanced',es:'Me resulta difícil de creer.',en:"I find it hard to believe.",ctx:'"Resultar" + adjective = to find something (a certain way). More refined than "es difícil."'},
+  {lv:'advanced',es:'Se antoja necesario…',en:"It seems necessary… / It would appear essential…",ctx:'Formal literary expression. "Antojarse" = to seem/appear (impersonal).'},
+  {lv:'advanced',es:'Dicho de otro modo…',en:"In other words… / To put it another way…",ctx:'Used to rephrase or clarify what was just said.'},
+  {lv:'advanced',es:'Eso no quita que…',en:"That doesn't change the fact that… / That still doesn't mean that…",ctx:'Acknowledges a point but counters it. Very natural in debate.'},
+  {lv:'advanced',es:'Lo que está claro es que…',en:"What is clear is that… / One thing that is certain is…",ctx:'Common in journalism and debate — emphasises a solid conclusion.'},
+
+  // ── NATIVE LEVEL (additional) ────────────────────────────────
+  {lv:'native',es:'Se armó la de Dios.',en:'All hell broke loose. There was complete chaos.',ctx:'Informal for a big commotion or argument breaking out.'},
+  {lv:'native',es:'¡Menudo lío!',en:'What a mess! What a muddle!',ctx:'"Menudo" = what a (ironic/emphatic). "Lío" = mess, trouble.'},
+  {lv:'native',es:'Me quedé de piedra.',en:"I was gobsmacked. I was completely stunned.",ctx:'"Quedarse de piedra" = to be turned to stone with shock.'},
+  {lv:'native',es:'No me hagas la pascua.',en:"Don't ruin it for me. Don't spoil things.",ctx:'"Hacer la pascua" = to spoil or ruin something for someone.'},
+  {lv:'native',es:'Entre pitos y flautas, se fue el día.',en:"Between one thing and another, the day just slipped away.",ctx:'When the day gets eaten up by small tasks and distractions.'},
+  {lv:'native',es:'Donde dije digo, digo Diego.',en:"I'm taking back what I said. I'm changing my story.",ctx:'Tongue-twister phrase when someone contradicts themselves.'},
+  {lv:'native',es:'No hay que rascarse la barriga.',en:"There's no time to sit around doing nothing.",ctx:'Literally "no scratching your belly" — stop being lazy.'},
+  {lv:'native',es:'Le salió el tiro por la culata.',en:"It completely backfired on him/her.",ctx:'When a plan produces the exact opposite of what was intended.'},
+  {lv:'native',es:'Se cree el ombligo del mundo.',en:"He/she thinks the world revolves around them.",ctx:'Literally "believes oneself to be the navel of the world."'},
+  {lv:'native',es:'Tener mucha cara.',en:"To have a lot of nerve / to have a lot of cheek.",ctx:'"¡Qué cara tiene!" = What a nerve! The audacity!'},
+  {lv:'native',es:'Estar en las últimas.',en:"To be on one's last legs. / To be nearly done for.",ctx:'Person or thing is almost finished or exhausted.'},
+  {lv:'native',es:'No es moco de pavo.',en:"It's no small thing. / It's not to be sniffed at.",ctx:'Literally "it\'s not turkey snot" — used to emphasise something significant.'},
+  {lv:'native',es:'A falta de pan, buenas son tortas.',en:"Beggars can't be choosers. / Make do with what you have.",ctx:'Proverb: when you don\'t have what you want, accept what\'s available.'},
+  {lv:'native',es:'Dar gato por liebre.',en:"To pull a fast one. / To sell someone a lemon.",ctx:'Literally "to give a cat instead of a hare" — to deceive with something inferior.'},
+  {lv:'native',es:'No hay quinto malo.',en:"The fifth time is a charm. / Fifth time lucky.",ctx:'Spanish version of "third time lucky" — but for the fifth time.'},
+  {lv:'native',es:'Estar hasta el gorro.',en:"To be completely fed up. / To have had it up to here.",ctx:'"Hasta el gorro" = up to the hat. Equivalent of "hasta las narices."'},
+  {lv:'native',es:'¡Que te aproveche!',en:"Enjoy your meal! / Bon appétit!",ctx:'What to say to someone eating — equivalent of "bon appétit" but more casual.'},
+  {lv:'native',es:'Poner el dedo en la llaga.',en:"To put your finger on it. / To hit a sore spot.",ctx:'Literally "to put the finger in the wound" — to identify a sensitive issue.'},
+  {lv:'native',es:'Andarse con ojo.',en:'To keep your eyes open. / To watch out. / To tread carefully.',ctx:'"¡Ándate con ojo!" = Be careful! Watch yourself!'},
+  {lv:'native',es:'Tener los pies en el suelo.',en:"To keep your feet on the ground. / To be grounded.",ctx:'To be realistic and practical rather than dreamy or naive.'},
+  {lv:'native',es:'Vivir de las rentas.',en:'To live off past achievements / to rest on your laurels.',ctx:'Literally "to live off rents/income" — relying on old success without working.'},
+  {lv:'native',es:'Como Pedro por su casa.',en:'As if you own the place. / Like you belong there completely.',ctx:'"Entró como Pedro por su casa" = he walked in like he owned the place.'},
+  {lv:'native',es:'Eso es harina de otro costal.',en:"That's a different kettle of fish. / That's a whole other matter.",ctx:'Literally "that\'s flour from a different sack" — a completely different issue.'},
+  {lv:'native',es:'No hay mal que cien años dure.',en:"Every cloud has a silver lining (over time). Nothing lasts forever.",ctx:'Proverb: no bad situation lasts forever. Consoling phrase.'},
+  {lv:'native',es:'Matar dos pájaros de un tiro.',en:"To kill two birds with one stone.",ctx:'Exact equivalent of the English idiom — doing two things at once.'},
+];
+
+const GRAMMAR = [
+  {title:'The Present Subjunctive',lv:'B2 Essential — Most-Tested Grammar Topic',html:`
+    <p>The subjunctive is a <strong>mood</strong> (not a tense) used when expressing doubt, desire, emotion, or uncertainty — anything not stated as objective fact.</p>
+    <div class="tip">🔑 <strong>Golden Rule:</strong> After "que" following verbs of wanting, hoping, fearing, or doubting → the next verb goes in the subjunctive.</div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Espero que <strong>vengas</strong> pronto.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I hope (that) you come soon.</div></div><div class="gram-ex-note">Esperar que = to hope that → always triggers subjunctive</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">No creo que <strong>sea</strong> verdad.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I don't think that it's true.</div></div><div class="gram-ex-note">No creer que = to doubt → triggers subjunctive</div></div>
+    <table class="conj-table"><tr><th>Pronoun</th><th>Hablar</th><th>= English</th><th>Tener</th><th>= English</th></tr>
+    <tr><td>yo</td><td class="sp">hable</td><td class="en-col">I speak</td><td class="sp">tenga</td><td class="en-col">I have</td></tr>
+    <tr><td>tú</td><td class="sp">hables</td><td class="en-col">you speak</td><td class="sp">tengas</td><td class="en-col">you have</td></tr>
+    <tr><td>él/ella</td><td class="sp">hable</td><td class="en-col">he/she speaks</td><td class="sp">tenga</td><td class="en-col">he/she has</td></tr>
+    <tr><td>nosotros</td><td class="sp">hablemos</td><td class="en-col">we speak</td><td class="sp">tengamos</td><td class="en-col">we have</td></tr>
+    <tr><td>ellos</td><td class="sp">hablen</td><td class="en-col">they speak</td><td class="sp">tengan</td><td class="en-col">they have</td></tr></table>`},
+  {title:'Por vs. Para',lv:'B2 Nuance — Both Mean "For" But Are NOT the Same',html:`
+    <p><strong>PARA</strong>: purpose, recipient, deadline, destination, opinion.<br><strong>POR</strong>: cause, duration, exchange, means, on behalf of, movement through.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Lo compré <strong>para</strong> ti.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I bought it for you (as a gift for you).</div></div><div class="gram-ex-note">PARA = recipient → intended for someone</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Lo compré <strong>por</strong> ti.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I bought it because of you / on your behalf.</div></div><div class="gram-ex-note">POR = cause/reason → because of someone</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Necesito estar allí <strong>para</strong> el lunes.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I need to be there by Monday (deadline).</div></div><div class="gram-ex-note">PARA = deadline</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Viajé <strong>por</strong> toda Europa.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I traveled throughout/through all of Europe.</div></div><div class="gram-ex-note">POR = movement through a place</div></div>
+    <div class="tip">💡 <strong>Quick test:</strong> Replace with "in order to" → use PARA. Replace with "because of" or "through" → use POR.</div>`},
+  {title:'Ser vs. Estar (Both = "To Be")',lv:'B2 Mastery — Two Verbs for One English Word',html:`
+    <p><strong>SER</strong>: permanent or defining qualities — identity, origin, material, time, profession.<br><strong>ESTAR</strong>: temporary states, emotions, location, progressive tenses, results of change.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">La sopa <strong>es</strong> rica.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">The soup is delicious (by nature, in general).</div></div><div class="gram-ex-note">SER = permanent characteristic of this type of soup</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">La sopa <strong>está</strong> rica.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">The soup tastes great right now (this bowl, today).</div></div><div class="gram-ex-note">ESTAR = current temporary state — this specific serving</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Él <strong>es</strong> aburrido. / Él <strong>está</strong> aburrido.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">He IS boring (personality) / He IS bored right now.</div></div><div class="gram-ex-note">Same adjective — completely different meaning!</div></div>
+    <div class="tip">⚡ More adjective pairs that change meaning: <em>listo</em>: es = clever | está = ready. <em>malo</em>: es = bad/evil | está = sick/unwell. <em>seguro</em>: es = safe | está = sure/certain.</div>`},
+  {title:'Conditional Perfect (3rd Conditional)',lv:'C1 Structure — "What Would Have Happened"',html:`
+    <p>Expresses hypothetical past situations — what would have happened if things had been different. Formula: <strong>si + pluperfect subjunctive</strong> (if clause) + <strong>conditional perfect</strong> (result).</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Si <strong>hubiera sabido</strong>, <strong>habría venido</strong>.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">If I had known, I would have come.</div></div><div class="gram-ex-note">hubiera sabido = if clause | habría venido = result</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Si <strong>hubieran llegado</strong> antes, <strong>habrían visto</strong> el show.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">If they had arrived earlier, they would have seen the show.</div></div><div class="gram-ex-note">Same structure — pluperfect subj. + conditional perfect</div></div>
+    <table class="conj-table"><tr><th>Subject</th><th>Spanish (habría + participle)</th><th>English meaning</th></tr>
+    <tr><td>yo</td><td class="sp">habría hablado</td><td class="en-col">I would have spoken</td></tr>
+    <tr><td>tú</td><td class="sp">habrías comido</td><td class="en-col">you would have eaten</td></tr>
+    <tr><td>él/ella</td><td class="sp">habría vivido</td><td class="en-col">he/she would have lived</td></tr>
+    <tr><td>nosotros</td><td class="sp">habríamos salido</td><td class="en-col">we would have left</td></tr>
+    <tr><td>ellos</td><td class="sp">habrían llegado</td><td class="en-col">they would have arrived</td></tr></table>`},
+  {title:'Reported (Indirect) Speech',lv:'C1 Complexity — Reporting What People Said',html:`
+    <p>When reporting what someone said using a past reporting verb (dijo, comentó, explicó…), tenses shift back — exactly like English.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Direct → Reported</div><div class="gram-ex-text">"Voy" → Dijo que <strong>iba</strong>.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 Direct → Reported</div><div class="gram-ex-text">"I'm going" → He said he <strong>was going</strong>.</div></div><div class="gram-ex-note">Present → Imperfect (same logic as English!)</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Direct → Reported</div><div class="gram-ex-text">"Llegaré tarde" → Dijo que <strong>llegaría</strong> tarde.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 Direct → Reported</div><div class="gram-ex-text">"I'll be late" → She said she <strong>would be</strong> late.</div></div><div class="gram-ex-note">Future → Conditional</div></div>
+    <table class="conj-table"><tr><th>Direct (Spanish)</th><th>→ Reported</th><th>English equivalent</th></tr>
+    <tr><td>Present (voy)</td><td class="sp">Imperfect (iba)</td><td class="en-col">was going</td></tr>
+    <tr><td>Preterite (fui)</td><td class="sp">Pluperfect (había ido)</td><td class="en-col">had gone</td></tr>
+    <tr><td>Future (iré)</td><td class="sp">Conditional (iría)</td><td class="en-col">would go</td></tr>
+    <tr><td>Imperfect (iba)</td><td class="sp">Imperfect (iba)</td><td class="en-col">was going (unchanged)</td></tr></table>
+    <div class="tip">📅 Time shifts: hoy → ese día | mañana → al día siguiente | ayer → el día anterior</div>`},
+  {title:'Verbal Periphrases',lv:'C1 Fluency — The Key to Sounding Natural',html:`
+    <p>Two-verb constructions that add nuance about when or how an action happens — essential for natural, advanced-sounding Spanish.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Acabo de llegar.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I've just arrived.</div></div><div class="gram-ex-note">Acabar de + inf. = to have just done something (moments ago)</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Llevo 3 horas estudiando.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">I've been studying for 3 hours (still ongoing).</div></div><div class="gram-ex-note">Llevar + gerund = have been doing (ongoing action)</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Se puso a llorar de repente.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">She suddenly started crying.</div></div><div class="gram-ex-note">Ponerse a + inf. = to suddenly start doing something</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Sigue lloviendo.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">It's still raining. / It keeps on raining.</div></div><div class="gram-ex-note">Seguir + gerund = to keep doing / to still be doing</div></div>`},
+  {title:'Imperfect vs. Preterite',lv:'B2 Foundation — The Past Tense Distinction',html:`
+    <p><strong>PRETERITE</strong>: completed actions at a specific time — events, sequences, sudden changes.<br><strong>IMPERFECT</strong>: ongoing past states, habitual past actions, descriptions, background.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Ayer <strong>comí</strong> una pizza. (preterite)</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">Yesterday I ate a pizza. (specific completed event)</div></div><div class="gram-ex-note">Preterite: specific past event, completed action</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">De niña, <strong>comía</strong> pizza cada semana. (imperfect)</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">As a child, I used to eat pizza every week. (habit)</div></div><div class="gram-ex-note">Imperfect: habitual repeated past action</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text"><strong>Llovía</strong> cuando <strong>salí</strong> de casa.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">It was raining (imperfect) when I left (preterite) the house.</div></div><div class="gram-ex-note">Background (imperfect) + event (preterite) together</div></div>
+    <div class="tip">🎬 Think of it like a movie: the <strong>imperfect = background/scene-setting</strong>; the <strong>preterite = the main events</strong> that happen in the foreground.</div>`},
+  {title:'Uses of the Infinitive',lv:'B2–C1 Versatility — The Infinitive Does Much More Than You Think',html:`
+    <p>In Spanish, the infinitive (-ar/-er/-ir) is used in many contexts where English would use different structures. Mastering this makes you sound far more natural.</p>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Al <strong>llegar</strong> a casa, llamé a mi madre.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">Upon arriving home / When I arrived home, I called my mother.</div></div><div class="gram-ex-note">Al + infinitive = upon doing / when one does</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">De <strong>haber</strong> sabido, no habría venido.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">Had I known / If I had known, I wouldn't have come.</div></div><div class="gram-ex-note">De + haber + participle = literary/formal conditional</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Sin <strong>decir</strong> nada, se fue.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">Without saying a word, he left.</div></div><div class="gram-ex-note">Sin + infinitive = without doing</div></div>
+    <div class="gram-ex"><div class="gram-ex-es"><div class="gram-ex-lbl">🇪🇸 Spanish</div><div class="gram-ex-text">Es importante <strong>practicar</strong> cada día.</div></div><div class="gram-ex-en"><div class="gram-ex-lbl">🇬🇧 English</div><div class="gram-ex-text">It is important to practice every day.</div></div><div class="gram-ex-note">Es + adjective + infinitive — Spanish prefers infinitive here</div></div>`},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let deckKey='b2vocab', cardI=0, fcC={good:0,hard:0,skip:0};
+let qI=0, qScore=0, qAnswered=[], qDone=false;
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+buildGrammar();
+buildPhrases('all');
+initQuiz();
+
+// ═══════════════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════════════
+function gotoTab(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('section-'+id).classList.add('active');
+  const order=['home','flashcards','quiz','grammar','phrases','progress'];
+  const i=order.indexOf(id);
+  if(i>=0) document.querySelectorAll('.tab')[i].classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════════════════════════════════
+function startFC(key, btn) {
+  deckKey=key; cardI=0; fcC={good:0,hard:0,skip:0};
+  updateFCStats();
+  if(btn) { document.querySelectorAll('.deck-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  document.getElementById('fc-done').classList.remove('show');
+  document.getElementById('fc-main').style.display='block';
+  document.getElementById('fc-deck-title').innerHTML=DECKS[key].title;
+  showCard();
+  gotoTab('flashcards');
+}
+
+function showCard() {
+  const d=DECKS[deckKey], c=d.cards[cardI];
+  document.getElementById('fc-counter').textContent=`Card ${cardI+1} of ${d.cards.length}`;
+  const badge=document.getElementById('fc-badge');
+  badge.textContent=c.badgeTxt;
+  badge.className='badge '+c.badge;
+  document.getElementById('fc-es-word').textContent=c.es;
+  document.getElementById('fc-phon').textContent=c.phon;
+  document.getElementById('fc-type').textContent=c.type;
+  document.getElementById('fc-en-word').textContent=c.en;
+  document.getElementById('fc-en-sub').textContent=c.enSub;
+  document.getElementById('fc-ex-es').textContent=c.exEs;
+  document.getElementById('fc-ex-en').textContent=c.exEn;
+  document.getElementById('fc-note').innerHTML=`📌 <strong>Note:</strong> ${c.note}`;
+}
+
+function rateCard(r) {
+  fcC[r]++;
+  updateFCStats();
+  cardI++;
+  if(cardI>=DECKS[deckKey].cards.length) {
+    document.getElementById('fc-main').style.display='none';
+    const tot=fcC.good+fcC.hard+fcC.skip;
+    const pct=tot>0?Math.round((fcC.good/tot)*100):0;
+    document.getElementById('fc-done-msg').textContent=`You reviewed all ${tot} cards — ${fcC.good} got it (${pct}%), ${fcC.hard} hard, ${fcC.skip} skipped.`;
+    document.getElementById('fc-done').classList.add('show');
+  } else { showCard(); }
+}
+
+function updateFCStats() {
+  document.getElementById('fc-good').textContent=fcC.good;
+  document.getElementById('fc-hard').textContent=fcC.hard;
+  document.getElementById('fc-skip').textContent=fcC.skip;
+}
+
+function restartFC() {
+  cardI=0; fcC={good:0,hard:0,skip:0};
+  updateFCStats();
+  document.getElementById('fc-done').classList.remove('show');
+  document.getElementById('fc-main').style.display='block';
+  showCard();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// QUIZ
+// ═══════════════════════════════════════════════════════════════
+function initQuiz() {
+  qI=0; qScore=0; qAnswered=new Array(QUIZ.length).fill(null); qDone=false;
+  buildProgDots();
+  loadQ();
+}
+
+function buildProgDots() {
+  const c=document.getElementById('q-prog'); c.innerHTML='';
+  QUIZ.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='q-dot'+(i===qI?' current':'');
+    d.id=`dot-${i}`;
+    c.appendChild(d);
+  });
+}
+
+function loadQ() {
+  const q=QUIZ[qI];
+  document.getElementById('q-num').textContent=`Question ${qI+1} / ${QUIZ.length}`;
+  const cat=document.getElementById('q-cat');
+  cat.textContent=q.catL; cat.className='quiz-cat '+q.cat;
+  document.getElementById('q-es').textContent=q.qEs;
+  document.getElementById('q-en').textContent=q.qEn;
+  document.getElementById('q-instr').textContent=q.instr;
+  const opts=document.getElementById('q-opts'); opts.innerHTML='';
+  ['A','B','C','D'].forEach((k,i)=>{
+    const div=document.createElement('div');
+    div.className='quiz-opt';
+    div.innerHTML=`<div class="opt-es"><div class="opt-k">${k}</div><div class="opt-sp">${q.opts[i].es}</div></div><div class="opt-en"><div class="opt-k">EN</div><div class="opt-en-txt">${q.opts[i].en}</div></div>`;
+    div.onclick=()=>answerQ(i);
+    opts.appendChild(div);
+  });
+  document.getElementById('q-fb').className='quiz-fb';
+  document.getElementById('q-next').className='quiz-next';
+  updateDots();
+}
+
+function updateDots() {
+  QUIZ.forEach((_,i)=>{
+    const d=document.getElementById(`dot-${i}`);
+    if(!d) return;
+    if(qAnswered[i]===true) d.className='q-dot done-ok';
+    else if(qAnswered[i]===false) d.className='q-dot done-no';
+    else if(i===qI) d.className='q-dot current';
+    else d.className='q-dot';
+  });
+}
+
+function answerQ(idx) {
+  if(document.getElementById('q-opts').querySelector('.disabled')) return;
+  const q=QUIZ[qI];
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.add('disabled'));
+  const opts=document.querySelectorAll('.quiz-opt');
+  const fb=document.getElementById('q-fb');
+  const correct=idx===q.correct;
+  if(correct) { qScore++; qAnswered[qI]=true; opts[idx].classList.add('correct'); fb.className='quiz-fb ok show'; fb.innerHTML=q.expl; }
+  else { qAnswered[qI]=false; opts[idx].classList.add('wrong'); opts[q.correct].classList.add('correct'); fb.className='quiz-fb no show'; fb.innerHTML=`✗ Not quite. The correct answer was <strong>${q.opts[q.correct].es}</strong> (${q.opts[q.correct].en}).<br><br>${q.expl}`; }
+  document.getElementById('q-next').className='quiz-next show';
+  updateDots();
+}
+
+function nextQ() {
+  qI++;
+  if(qI>=QUIZ.length) { showQuizEnd(); }
+  else { loadQ(); }
+}
+
+function showQuizEnd() {
+  document.getElementById('quiz-main').style.display='none';
+  const pct=Math.round((qScore/QUIZ.length)*100);
+  let icon='😅',title='Keep Practicing!';
+  if(pct>=90){icon='🏆';title='Outstanding!';}
+  else if(pct>=75){icon='🌟';title='Excellent!';}
+  else if(pct>=55){icon='👏';title='Good Work!';}
+  document.getElementById('q-icon').textContent=icon;
+  document.getElementById('q-title').textContent=title;
+  document.getElementById('q-msg').textContent=`You scored ${qScore} out of ${QUIZ.length} (${pct}%). ${pct>=70?'Great command of Spanish!':'Review the Grammar and Flashcard sections, then try again!'}`;
+  document.getElementById('quiz-done').classList.add('show');
+}
+
+function restartQuiz() {
+  document.getElementById('quiz-main').style.display='block';
+  document.getElementById('quiz-done').classList.remove('show');
+  initQuiz();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GRAMMAR
+// ═══════════════════════════════════════════════════════════════
+function buildGrammar() {
+  const grid=document.getElementById('gram-grid');
+  GRAMMAR.forEach(g=>{
+    const div=document.createElement('div');
+    div.className='gram-card';
+    div.innerHTML=`<div class="gram-title">${g.title}</div><div class="gram-lv">${g.lv}</div>${g.html}`;
+    grid.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PHRASES
+// ═══════════════════════════════════════════════════════════════
+function buildPhrases(filter) {
+  const list=document.getElementById('phrase-list'); list.innerHTML='';
+  const lblMap={beginner:'Beginner A2–B1',intermediate:'Intermediate B2',advanced:'Advanced C1',native:'Native Level'};
+  const data=filter==='all'?PHRASES:PHRASES.filter(p=>p.lv===filter);
+  data.forEach((p,i)=>{
+    const id=`ph-${i}-${filter}`;
+    const div=document.createElement('div');
+    div.className='phrase-item'; div.id=id;
+    div.innerHTML=`
+      <div class="phrase-top">
+        <div class="p-es"><div class="p-lbl">🇪🇸 Spanish</div><div class="p-es-text">${p.es}</div></div>
+        <div class="p-en"><div class="p-lbl">🇬🇧 English</div><div class="p-en-text">${p.en}</div></div>
+      </div>
+      <div class="phrase-bottom">
+        <span class="p-badge ${p.lv}">${lblMap[p.lv]}</span>
+        <span class="p-ctx">${p.ctx}</span>
+        <div class="play-btn" onclick="playPhrase(event,'${id}','${p.es.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">▶</div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function filterPhrases(f,btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildPhrases(f);
+}
+
+let utter=null, currentPlayId=null;
+function playPhrase(e,id,text) {
+  e.stopPropagation();
+  if(!('speechSynthesis' in window)) return;
+  if(utter) { speechSynthesis.cancel(); }
+  if(currentPlayId===id) { currentPlayId=null; return; }
+  document.querySelectorAll('.phrase-item').forEach(p=>p.classList.remove('playing'));
+  const el=document.getElementById(id);
+  if(el) el.classList.add('playing');
+  currentPlayId=id;
+  utter=new SpeechSynthesisUtterance(text);
+  utter.lang='es-ES'; utter.rate=0.82;
+  utter.onend=()=>{ if(el) el.classList.remove('playing'); currentPlayId=null; };
+  speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>
